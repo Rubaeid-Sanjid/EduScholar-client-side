@@ -7,10 +7,10 @@ const Navbar = () => {
       <NavLink className={"my-2 lg:my-0 mx-2 text-white"}>
         All Scholarship
       </NavLink>
-      <NavLink className={"my-2 lg:my-0 mx-2 text-white"}>
+      <NavLink className={"my-2 lg:my-0 mx-2 "}>
         User Dashboard
       </NavLink>
-      <NavLink className={"my-2 lg:my-0 mx-2 text-white"}>
+      <NavLink className={"my-2 lg:my-0 mx-2 "}>
         Admin Dashboard
       </NavLink>
     </>
@@ -18,7 +18,7 @@ const Navbar = () => {
   return (
     <div>
       <div
-        className="navbar py-5 px-12 bg-black z-10"
+        className="navbar md:fixed py-5 lg:px-12 bg-black z-10"
         style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }}
       >
         <div className="navbar-start ">
@@ -46,18 +46,18 @@ const Navbar = () => {
               {navlink}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl text-white">EduScholar</a>
+          <a className="btn btn-ghost text-xl">EduScholar</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navlink}</ul>
           </div>
           <div className="navbar-end">
           <div className="avatar">
-            <div className="w-20 rounded-full">
+            <div className="w-16 lg:w-20 rounded-full">
               <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
             </div>
           </div>
-          <a className="btn">Login</a>
+          <a className="btn btn-sm lg:btn-md ml-2 bg-orange-400 text-white border-none">Login</a>
         </div>
       </div>
     </div>
