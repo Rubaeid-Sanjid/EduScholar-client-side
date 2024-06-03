@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import SectionTitle from "../SectionTitle/SectionTitle";
+import { Link } from "react-router-dom";
+import Scholarship from "../Scholarship/Scholarship";
 
 const Scholarships = () => {
   const [scholarships, setScholarships] = useState([]);
@@ -8,6 +10,17 @@ const Scholarships = () => {
       .then((res) => res.json())
       .then((data) => setScholarships(data));
   }, []);
+
+  const sortedScholarships = scholarships.sort((a, b)=>{
+    const firstItem = parseInt(a.applicationFees.split('$')[1])
+    const secondItem = parseInt(b.applicationFees.split('$')[1])
+    if (firstItem === secondItem) {
+      return new Date(b.postDate) - new Date(a.postDate);
+    }
+    
+    return firstItem - secondItem;
+  })
+
   return (
     <div className="container mx-auto px-3 lg:px-12 my-8 lg:my-14">
       <SectionTitle
@@ -17,27 +30,16 @@ const Scholarships = () => {
         }
       ></SectionTitle>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {scholarships.map((scholarshipItem) => (
-          <div
-            className="card bg-base-100 shadow-xl"
+        {sortedScholarships.map((scholarshipItem) => (
+          <Scholarship
             key={scholarshipItem._id}
-          >
-            <figure>
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body">
-              <h2 className="card-title">{scholarshipItem.universityName}</h2>
-              <p>If a dog chews shoes whose shoes does he choose?</p>
-              <div className="card-actions justify-end">
-                <button className="btn btn-primary">Buy Now</button>
-              </div>
-            </div>
-          </div>
+            scholarshipItem={scholarshipItem}
+          ></Scholarship>
         ))}
       </div>
+      <Link className="flex justify-center my-6">
+        <button className="btn">All Scholarships</button>
+      </Link>
     </div>
   );
 };
