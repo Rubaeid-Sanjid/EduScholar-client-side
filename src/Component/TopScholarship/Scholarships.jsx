@@ -14,10 +14,11 @@ const Scholarships = () => {
   const sortedScholarships = scholarships.sort((a, b)=>{
     const firstItem = parseInt(a.applicationFees.split('$')[1])
     const secondItem = parseInt(b.applicationFees.split('$')[1])
+    
     if (firstItem === secondItem) {
       return new Date(b.postDate) - new Date(a.postDate);
     }
-    
+
     return firstItem - secondItem;
   })
 
@@ -38,7 +39,7 @@ const Scholarships = () => {
         ))}
       </div>
       <Link className="flex justify-center my-6">
-        <button className="btn">All Scholarships</button>
+        <button className="btn bg-orange-400 text-white">All Scholarships</button>
       </Link>
     </div>
   );
