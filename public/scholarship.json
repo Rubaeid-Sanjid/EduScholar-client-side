@@ -1,0 +1,81 @@
+[
+    {
+      "universityName": "Harvard University",
+      "universityImage": "https://example.com/images/harvard-logo.png",
+      "scholarshipCategory": "Merit-based",
+      "universityLocation": {
+        "country": "USA",
+        "city": "Cambridge"
+      },
+      "applicationDeadline": "2024-08-15",
+      "subjectCategory": "Computer Science",
+      "applicationFees": 75,
+      "rating": 4.8
+    },
+    {
+      "universityName": "University of Oxford",
+      "universityImage": "https://example.com/images/oxford-logo.png",
+      "scholarshipCategory": "Need-based",
+      "universityLocation": {
+        "country": "UK",
+        "city": "Oxford"
+      },
+      "applicationDeadline": "2024-09-01",
+      "subjectCategory": "Engineering",
+      "applicationFees": 60,
+      "rating": 4.9
+    },
+    {
+      "universityName": "Stanford University",
+      "universityImage": "https://example.com/images/stanford-logo.png",
+      "scholarshipCategory": "Athletic",
+      "universityLocation": {
+        "country": "USA",
+        "city": "Stanford"
+      },
+      "applicationDeadline": "2024-07-20",
+      "subjectCategory": "Business",
+      "applicationFees": 90,
+      "rating": 4.7
+    },
+    {
+      "universityName": "University of Toronto",
+      "universityImage": "https://example.com/images/toronto-logo.png",
+      "scholarshipCategory": "International",
+      "universityLocation": {
+        "country": "Canada",
+        "city": "Toronto"
+      },
+      "applicationDeadline": "2024-10-05",
+      "subjectCategory": "Medicine",
+      "applicationFees": 100,
+      "rating": 4.6
+    },
+    {
+      "universityName": "Australian National University",
+      "universityImage": "https://example.com/images/anu-logo.png",
+      "scholarshipCategory": "Research",
+      "universityLocation": {
+        "country": "Australia",
+        "city": "Canberra"
+      },
+      "applicationDeadline": "2024-11-15",
+      "subjectCategory": "Environmental Science",
+      "applicationFees": 50,
+      "rating": 4.8
+    },
+    {
+      "universityName": "University of Tokyo",
+      "universityImage": "https://example.com/images/tokyo-logo.png",
+      "scholarshipCategory": "Government-funded",
+      "universityLocation": {
+        "country": "Japan",
+        "city": "Tokyo"
+      },
+      "applicationDeadline": "2024-12-01",
+      "subjectCategory": "Physics",
+      "applicationFees": 70,
+      "rating": 4.7
+    }
+  ]
+  
