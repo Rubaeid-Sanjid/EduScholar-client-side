@@ -13,9 +13,9 @@ const Scholarship = ({ scholarshipItem }) => {
   } = scholarshipItem;
   return (
     <div>
-      <div className="card bg-base-100 shadow-xl">
-        <figure>
-          <img src={universityImage} alt="" />
+      <div className="card bg-base-100 rounded-none shadow-xl">
+        <figure className="h-[250px]">
+          <img src={universityImage} alt="University Image" className="h-full w-full"/>
         </figure>
         <div className="card-body">
           <h2 className="card-title mb-4">{universityName}</h2>

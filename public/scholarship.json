@@ -1,7 +1,8 @@
+
 [
   {
     "universityName": "Harvard University",
-    "universityImage": "https://example.com/images/harvard.jpg",
+    "universityImage": "https://i.ibb.co/QCGs87S/Harvard-University.jpg",
     "scholarshipCategory": "Undergraduate",
     "universityLocation": {
       "country": "USA",
@@ -18,7 +19,7 @@
   },
   {
     "universityName": "University of Oxford",
-    "universityImage": "https://example.com/images/oxford.jpg",
+    "universityImage": "https://i.ibb.co/MZ9GpwF/oxfordskyline.jpg",
     "scholarshipCategory": "Postgraduate",
     "universityLocation": {
       "country": "UK",
@@ -35,7 +36,7 @@
   },
   {
     "universityName": "Stanford University",
-    "universityImage": "https://example.com/images/stanford.jpg",
+    "universityImage": "https://i.ibb.co/RydTyQF/stanford.jpg",
     "scholarshipCategory": "PhD",
     "universityLocation": {
       "country": "USA",
@@ -52,7 +53,7 @@
   },
   {
     "universityName": "University of Toronto",
-    "universityImage": "https://example.com/images/toronto.jpg",
+    "universityImage": "https://i.ibb.co/4mj1HGf/University-of-Toronto.jpg",
     "scholarshipCategory": "Masters",
     "universityLocation": {
       "country": "Canada",
@@ -69,7 +70,7 @@
   },
   {
     "universityName": "Australian National University",
-    "universityImage": "https://example.com/images/anu.jpg",
+    "universityImage": "https://i.ibb.co/wMvVNDQ/Australian-National-University.jpg",
     "scholarshipCategory": "Undergraduate",
     "universityLocation": {
       "country": "Australia",
@@ -86,7 +87,7 @@
   },
   {
     "universityName": "National University of Singapore",
-    "universityImage": "https://example.com/images/nus.jpg",
+    "universityImage": "https://i.ibb.co/rv4fnCB/NUS.png",
     "scholarshipCategory": "Postgraduate",
     "universityLocation": {
       "country": "Singapore",

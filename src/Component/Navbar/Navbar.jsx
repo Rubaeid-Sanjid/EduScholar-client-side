@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const navlink = (
@@ -7,12 +7,8 @@ const Navbar = () => {
       <NavLink className={"my-2 lg:my-0 mx-2 text-white"}>
         All Scholarship
       </NavLink>
-      <NavLink className={"my-2 lg:my-0 mx-2 "}>
-        User Dashboard
-      </NavLink>
-      <NavLink className={"my-2 lg:my-0 mx-2 "}>
-        Admin Dashboard
-      </NavLink>
+      <NavLink className={"my-2 lg:my-0 mx-2 "}>User Dashboard</NavLink>
+      <NavLink className={"my-2 lg:my-0 mx-2 "}>Admin Dashboard</NavLink>
     </>
   );
   return (
@@ -50,14 +46,18 @@ const Navbar = () => {
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navlink}</ul>
-          </div>
-          <div className="navbar-end">
+        </div>
+        <div className="navbar-end">
           <div className="avatar">
             <div className="w-16 lg:w-20 rounded-full">
               <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
             </div>
           </div>
-          <a className="btn btn-sm lg:btn-md ml-2 bg-orange-400 text-white border-none">Login</a>
+          <Link to={'/login'}>
+            <button className="btn btn-sm lg:btn-md ml-2 bg-orange-400 text-white border-none">
+              Login
+            </button>
+          </Link>
         </div>
       </div>
     </div>
