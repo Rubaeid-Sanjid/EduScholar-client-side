@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import loginImage from "../../assets/images/signIn.jpg";
+import { Link } from "react-router-dom";
 const Login = () => {
   const {
     register,
@@ -52,8 +53,12 @@ const Login = () => {
                   </label>
                 </div>
                 <div className="form-control mt-6">
-                  <button className="btn btn-primary">Login</button>
+                  <button className="btn bg-orange-400 text-white">Login</button>
                 </div>
+                <p className="text-center">
+                  New here ? Create an account{" "}
+                  <Link to={"/signUp"} className="text-orange-400 underline">Sign Up</Link>
+                </p>
               </form>
             </div>
           </div>

@@ -4,7 +4,7 @@ import Navbar from "../../Component/Navbar/Navbar";
 const Main = () => {
     const location = useLocation();
 
-    const removeNavbarFooter = location.pathname.includes('/login');
+    const removeNavbarFooter = location.pathname.includes('/login' && '/signUp');
 
     return (
         <div>
