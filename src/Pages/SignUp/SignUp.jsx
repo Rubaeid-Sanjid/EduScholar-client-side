@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import signUpImage from "../../assets/images/signUp.jpg";
 import { Link } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 
 const SignUp = () => {
   const {
@@ -9,7 +10,14 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const {user} = useAuth();
+  console.log(user);
+  
+  const onSubmit = (data) => {
+    console.log(data)
+
+    
+  };
 
   return (
       <div className="hero min-h-screen my-12">
@@ -43,6 +51,7 @@ const SignUp = () => {
                   <input
                     type="file"
                     className="file-input file-input-bordered w-full max-w-xs"
+                    {...register("photo")}
                   />
                 </label>
 
