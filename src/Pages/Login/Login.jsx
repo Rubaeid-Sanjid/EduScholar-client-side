@@ -3,6 +3,7 @@ import loginImage from "../../assets/images/signIn.jpg";
 import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import googleLogo from "../../assets/images/google-logo-image.png"
 const Login = () => {
   const {
     register,
@@ -11,13 +12,12 @@ const Login = () => {
     // formState: { errors },
   } = useForm();
 
-  const { loginUser } = useAuth();
+  const { loginUser, googleLogin } = useAuth();
 
   const onSubmit = (data) => {
 
     loginUser(data.email, data.password)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -33,6 +33,21 @@ const Login = () => {
       });
   };
 
+  const handleGoogleLogin = ()=>{
+    googleLogin()
+    .then(()=>{
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Log-In successful",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    })
+    .catch(error =>{
+      console.log(error);
+    })
+  }
   return (
     <div>
       <div className="hero min-h-screen">
@@ -86,6 +101,14 @@ const Login = () => {
                   </label>
                 </div>
                 <div className="form-control mt-6">
+                <button
+                onClick={handleGoogleLogin}
+                className="w-full px-4 py-2 border flex justify-center gap-2 rounded-lg mb-3"
+              >
+                <img className="w-6 h-6" src={googleLogo} alt="google logo" />
+                <span>Login with Google</span>
+              </button>
+
                   <button className="btn bg-orange-400 text-white">
                     Login
                   </button>
