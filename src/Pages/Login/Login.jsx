@@ -1,14 +1,37 @@
 import { useForm } from "react-hook-form";
 import loginImage from "../../assets/images/signIn.jpg";
 import { Link } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 const Login = () => {
   const {
     register,
     handleSubmit,
+    // setError,
     // formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const { loginUser } = useAuth();
+
+  const onSubmit = (data) => {
+
+    loginUser(data.email, data.password)
+      .then((res) => {
+        console.log(res);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Log-In successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((err) => {
+        console.log(err.code.split('/')[1]);
+        // setError("email", { message: err.code.split('/')[1] });
+        // setError("password", { message: err.code.split('/')[1] });
+      });
+  };
 
   return (
     <div>
@@ -34,6 +57,11 @@ const Login = () => {
                     required
                     {...register("email")}
                   />
+                  {/* {errors.email && (
+                    <p role="alert" className="text-red-600 mt-1">
+                      {errors.email.message}
+                    </p>
+                  )} */}
                 </div>
                 <div className="form-control">
                   <label className="label">
@@ -46,6 +74,11 @@ const Login = () => {
                     required
                     {...register("password")}
                   />
+                  {/* {errors.password && (
+                    <p role="alert" className="text-red-600 mt-1">
+                      {errors.password.message}
+                    </p>
+                  )} */}
                   <label className="label">
                     <a href="#" className="label-text-alt link link-hover">
                       Forgot password?
@@ -53,11 +86,15 @@ const Login = () => {
                   </label>
                 </div>
                 <div className="form-control mt-6">
-                  <button className="btn bg-orange-400 text-white">Login</button>
+                  <button className="btn bg-orange-400 text-white">
+                    Login
+                  </button>
                 </div>
                 <p className="text-center">
                   New here ? Create an account{" "}
-                  <Link to={"/signUp"} className="text-orange-400 underline">Sign Up</Link>
+                  <Link to={"/signUp"} className="text-orange-400 underline">
+                    Sign Up
+                  </Link>
                 </p>
               </form>
             </div>

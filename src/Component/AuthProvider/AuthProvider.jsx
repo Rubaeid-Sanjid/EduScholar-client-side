@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../Firebase/FirebaseConfig";
@@ -14,27 +16,40 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const createUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const updateUser = (name, photoUrl)=>{
+  const updateUser = (name, photoUrl) => {
+    setLoading(true);
     return updateProfile(auth.currentUser, {
-        displayName: name, photoURL: photoUrl
-    })
+      displayName: name,
+      photoURL: photoUrl,
+    });
+  };
+
+  const loginUser = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const logoutUser = ()=>{
+    return signOut(auth)
   }
 
-  
-  useEffect(()=>{
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
-        setLoading(false);
-      });
+      setUser(currentUser);
+      setLoading(false);
+    });
 
-    return ()=>{
-        unsubscribe();
-    }
-  },[])
-  const authInfo = { user, loading, createUser, updateUser };
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const authInfo = { user, loading, createUser, updateUser, loginUser, logoutUser };
+
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
