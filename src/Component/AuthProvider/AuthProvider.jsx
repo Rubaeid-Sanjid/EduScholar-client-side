@@ -22,6 +22,8 @@ const AuthProvider = ({ children }) => {
         displayName: name, photoURL: photoUrl
     })
   }
+
+  
   useEffect(()=>{
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
         setUser(currentUser);

@@ -1,16 +1,25 @@
 import { Link, NavLink } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 
 const Navbar = () => {
   const navlink = (
     <>
-      <NavLink className={"my-2 lg:my-0 mx-2 text-white"}>Home</NavLink>
-      <NavLink className={"my-2 lg:my-0 mx-2 text-white"}>
+      <NavLink to={"/"} className={"my-2 lg:my-0 mx-2"}>
+        Home
+      </NavLink>
+      <NavLink to={"/AllScholarship"} className={"my-2 lg:my-0 mx-2"}>
         All Scholarship
       </NavLink>
-      <NavLink className={"my-2 lg:my-0 mx-2 "}>User Dashboard</NavLink>
-      <NavLink className={"my-2 lg:my-0 mx-2 "}>Admin Dashboard</NavLink>
+      <NavLink to={"/UserDashboard"} className={"my-2 lg:my-0 mx-2"}>
+        User Dashboard
+      </NavLink>
+      <NavLink to={"/AdminDashboard"} className={"my-2 lg:my-0 mx-2"}>
+        Admin Dashboard
+      </NavLink>
     </>
   );
+
+  const { user } = useAuth();
   return (
     <div>
       <div
@@ -42,22 +51,38 @@ const Navbar = () => {
               {navlink}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">EduScholar</a>
+          <a className="btn pl-0 btn-ghost text-xl lg:text-3xl text-white">
+            EduScholar
+          </a>
         </div>
-        <div className="navbar-center hidden lg:flex">
+
+        <div className="navbar-end hidden lg:flex text-white">
           <ul className="menu menu-horizontal px-1">{navlink}</ul>
         </div>
-        <div className="navbar-end">
-          <div className="avatar">
-            <div className="w-16 lg:w-20 rounded-full">
-              <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+
+        <div>
+          {user ? (
+            <div className="flex flex-col lg:flex-row items-center ml-3">
+              <div className="flex items-center">
+                <h3 className="text-xl text-white mx-3">{user.displayName}</h3>
+                <div className="avatar">
+                  <div className="w-16 lg:w-20 rounded-full">
+                    <img src={user.photoURL} />
+                  </div>
+                </div>
+              </div>
+
+              <button className="btn btn-xs w-full md:w-2/5 lg:btn-md ml-2 bg-orange-400 text-white border-none">
+                Logout
+              </button>
             </div>
-          </div>
-          <Link to={'/login'}>
-            <button className="btn btn-sm lg:btn-md ml-2 bg-orange-400 text-white border-none">
-              Login
-            </button>
-          </Link>
+          ) : (
+            <Link to={"/login"}>
+              <button className="btn btn-xs w-full md:w-2/5 lg:btn-md ml-2 bg-orange-400 text-white border-none">
+                Login
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </div>

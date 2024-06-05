@@ -7,3 +7,10 @@
 #root {
   font-family: "Roboto", sans-serif;
 }
+
+ul .active{
+  font-size: 18px;
+  font-weight: 600;
+  border-bottom: 2px solid orange;
+  padding-bottom: 3px;
+}
