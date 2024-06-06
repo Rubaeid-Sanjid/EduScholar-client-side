@@ -10,6 +10,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../Firebase/FirebaseConfig";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 export const AuthContext = createContext();
 
@@ -43,9 +44,23 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  const axiosPublic = useAxiosPublic();
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+
+      if (currentUser) {
+        const userEmail = { email: currentUser.email };
+        axiosPublic.post("/jwt", userEmail).then((res) => {
+          if (res.data.token) {
+            localStorage.setItem("token", res.data.token);
+          }
+        });
+      } else {
+        localStorage.removeItem("token");
+      }
+
       setLoading(false);
     });
 
