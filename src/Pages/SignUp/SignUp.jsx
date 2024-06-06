@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import signUpImage from "../../assets/images/signUp.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { axiosPublic } from "../../Hooks/useAxiosPublic";
@@ -9,39 +9,54 @@ const SignUp = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
+
+  const navigate = useNavigate();
 
   const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
   const { createUser, updateUser } = useAuth();
 
-  const onSubmit = async(data) => {
-
-    const imgFile = {image: data.photo[0]}
+  const onSubmit = async (data) => {
+    const imgFile = { image: data.photo[0] };
 
     const res = await axiosPublic.post(image_hosting_api, imgFile, {
-      headers: {'Content-Type': 'multipart/form-data'}
-    })
+      headers: { "Content-Type": "multipart/form-data" },
+    });
 
     createUser(data.email, data.password)
-    .then(()=> {
-      updateUser(data.name, res.data.data.display_url)
       .then(() => {
-        Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Your account has been created",
-        showConfirmButton: false,
-        timer: 1500
-      });
-      }).catch((error) => {
-        console.log(error);
-      });
-      
-    })
-    .catch(errors=>console.log(errors))
+        updateUser(data.name, res.data.data.display_url)
+          .then(() => {
+            const userInfo = {
+              user_email: data.email,
+              user_name: data.name,
+              user_password: data.password,
+              user_photo: res.data.data.display_url,
+            };
+
+            axiosPublic.post("/users", userInfo).then((res) => {
+              if (res.data.insertedId) {
+                reset();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Your account has been created",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                navigate("/");
+              }
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((errors) => console.log(errors));
   };
 
   return (
