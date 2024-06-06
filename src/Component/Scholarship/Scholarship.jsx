@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const Scholarship = ({ scholarshipItem }) => {
   const {
@@ -52,9 +53,11 @@ const Scholarship = ({ scholarshipItem }) => {
             </div>
           </div>
           <div className="card-actions justify-end mt-4">
+            <Link to={'/scholarshipDetails'}>
             <button className="btn bg-orange-400 text-white">
               Scholarship Details
             </button>
+            </Link>
           </div>
         </div>
       </div>
