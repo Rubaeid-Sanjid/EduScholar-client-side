@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import loginImage from "../../assets/images/signIn.jpg";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import googleLogo from "../../assets/images/google-logo-image.png"
@@ -11,6 +11,11 @@ const Login = () => {
     // setError,
     // formState: { errors },
   } = useForm();
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const pathFrom = location.state?.from?.pathname || '/';
 
   const { loginUser, googleLogin } = useAuth();
 
@@ -25,6 +30,7 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        navigate(pathFrom, {replace: true})
       })
       .catch((err) => {
         console.log(err.code.split('/')[1]);
@@ -43,6 +49,7 @@ const Login = () => {
         showConfirmButton: false,
         timer: 1500,
       });
+      navigate(pathFrom, {replace: true})
     })
     .catch(error =>{
       console.log(error);

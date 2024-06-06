@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 const Scholarship = ({ scholarshipItem }) => {
   const {
+    _id,
     universityName,
     universityImage,
     scholarshipCategory,
@@ -16,7 +17,11 @@ const Scholarship = ({ scholarshipItem }) => {
     <div>
       <div className="card bg-base-100 rounded-none shadow-xl">
         <figure className="h-[250px]">
-          <img src={universityImage} alt="University Image" className="h-full w-full"/>
+          <img
+            src={universityImage}
+            alt="University Image"
+            className="h-full w-full"
+          />
         </figure>
         <div className="card-body">
           <h2 className="card-title mb-4">{universityName}</h2>
@@ -53,10 +58,10 @@ const Scholarship = ({ scholarshipItem }) => {
             </div>
           </div>
           <div className="card-actions justify-end mt-4">
-            <Link to={'/scholarshipDetails'}>
-            <button className="btn bg-orange-400 text-white">
-              Scholarship Details
-            </button>
+            <Link to={`/scholarshipDetails/${_id}`}>
+              <button className="btn bg-orange-400 text-white">
+                Scholarship Details
+              </button>
             </Link>
           </div>
         </div>

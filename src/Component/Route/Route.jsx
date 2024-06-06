@@ -24,12 +24,14 @@ export const router = createBrowserRouter([
         element: <SignUp></SignUp>,
       },
       {
-        path: "/scholarshipDetails",
+        path: "/scholarshipDetails/:id",
         element: (
           <PrivateRoute>
             <ScholarshipDetails></ScholarshipDetails>
           </PrivateRoute>
         ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/scholarshipDetails/${params.id}`),
       },
     ],
   },
