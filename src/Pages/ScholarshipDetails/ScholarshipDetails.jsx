@@ -20,7 +20,6 @@ const ScholarshipDetails = () => {
     rating,
   } = scholarshipDetails;
 
-console.log(_id);
   return (
     <div className="container mx-auto lg:px-12 px-3 py-32">
       <div className="card lg:card-side bg-base-100 shadow-xl">
@@ -48,13 +47,16 @@ console.log(_id);
           </h3>
 
           <h3 className="mb-3">
-            <span className="font-bold text-gray-600">Posted on:</span> {postDate}
+            <span className="font-bold text-gray-600">Posted on:</span>{" "}
+            {postDate}
           </h3>
 
           <p className="mb-3">{scholarshipDescription}</p>
 
           <h3 className="flex justify-between mb-2 pb-2 border-b-2 border-dotted">
-            <span className="font-bold text-gray-600">Scholarship Category: </span>
+            <span className="font-bold text-gray-600">
+              Scholarship Category:{" "}
+            </span>
             {scholarshipCategory}
           </h3>
 
@@ -64,7 +66,9 @@ console.log(_id);
           </h3>
 
           <h3 className="flex justify-between mb-2 pb-2 border-b-2 border-dotted">
-            <span className="font-bold text-gray-600">Application Deadline: </span>
+            <span className="font-bold text-gray-600">
+              Application Deadline:{" "}
+            </span>
             {applicationDeadline}
           </h3>
 
@@ -86,7 +90,9 @@ console.log(_id);
           </h3>
 
           <div className="card-actions justify-end">
-            <button className="btn bg-orange-400 text-white">Apply Scholarship</button>
+            <button className="btn bg-orange-400 text-white">
+              Apply Scholarship
+            </button>
           </div>
         </div>
       </div>

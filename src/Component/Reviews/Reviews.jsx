@@ -1,38 +1,45 @@
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-import PropTypes from 'prop-types'; 
+import { Swiper, SwiperSlide } from "swiper/react";
+import PropTypes from "prop-types";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import { useEffect, useState } from 'react';
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { useEffect, useState } from "react";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import ReviewCard from "../ReviewCard/ReviewCard";
+import SectionTitle from "../SectionTitle/SectionTitle";
 
-const Reviews = ({scholarshipId}) => {
-    const axiosPublic = useAxiosPublic()
+const Reviews = ({ scholarshipId }) => {
+  const axiosPublic = useAxiosPublic();
 
-    const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState([]);
 
-    useEffect(()=>{
-        axiosPublic.get(`/reviews/${scholarshipId}`)
-        .then(res=>{
-            setReviews(res.data);
-        })
-        .catch(error=>{
-            console.log(error);
-        })
-    },[axiosPublic, scholarshipId])
+  useEffect(() => {
+    axiosPublic
+      .get(`/reviews/${scholarshipId}`)
+      .then((res) => {
+        setReviews(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [axiosPublic, scholarshipId]);
 
-    console.log(reviews.length);
-    return (
-        <div>
-            <Swiper
+  return (
+    <div>
+      <SectionTitle
+        title={"Scholarship Reviews"}
+        subtitle={"Real Experiences from Successful Applicants"}
+      ></SectionTitle>
+      
+      <Swiper
         spaceBetween={30}
         centeredSlides={true}
         autoplay={{
-          delay: 2500,
+          delay: 3000,
           disableOnInteraction: false,
         }}
         pagination={{
@@ -42,17 +49,18 @@ const Reviews = ({scholarshipId}) => {
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
       >
-        
-        {
-            reviews.map(review => <SwiperSlide key={review._id}>Slide 1</SwiperSlide>)
-        }
+        {reviews.map((review) => (
+          <SwiperSlide key={review._id}>
+            <ReviewCard review={review}></ReviewCard>
+          </SwiperSlide>
+        ))}
       </Swiper>
-        </div>
-    );
+    </div>
+  );
 };
 
 Reviews.propTypes = {
-    scholarshipId: PropTypes.string,
+  scholarshipId: PropTypes.string,
 };
 
 export default Reviews;
