@@ -1,8 +1,11 @@
 import { useLoaderData } from "react-router-dom";
+import Reviews from "../../Component/Reviews/Reviews";
 
 const ScholarshipDetails = () => {
   const scholarshipDetails = useLoaderData();
+
   const {
+    _id,
     universityName,
     universityImage,
     scholarshipCategory,
@@ -16,6 +19,8 @@ const ScholarshipDetails = () => {
     applicationFees,
     rating,
   } = scholarshipDetails;
+
+console.log(_id);
   return (
     <div className="container mx-auto lg:px-12 px-3 py-32">
       <div className="card lg:card-side bg-base-100 shadow-xl">
@@ -85,6 +90,7 @@ const ScholarshipDetails = () => {
           </div>
         </div>
       </div>
+      <Reviews scholarshipId={_id}></Reviews>
     </div>
   );
 };
