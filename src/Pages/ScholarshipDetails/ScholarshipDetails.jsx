@@ -1,5 +1,8 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import Reviews from "../../Component/Reviews/Reviews";
+
+import { Rating } from "@smastrom/react-rating";
+import "@smastrom/react-rating/style.css";
 
 const ScholarshipDetails = () => {
   const scholarshipDetails = useLoaderData();
@@ -21,25 +24,17 @@ const ScholarshipDetails = () => {
   } = scholarshipDetails;
 
   return (
-    <div className="container mx-auto lg:px-12 px-3 py-32">
+    <div className="container mx-auto lg:px-12 px-3 py-8 lg:py-32">
       <div className="card lg:card-side bg-base-100 shadow-xl">
         <figure className="flex-1">
           <img src={universityImage} alt="" />
         </figure>
 
         <div className="card-body flex-1">
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-3 items-center justify-between">
             <h2 className="card-title">{universityName}</h2>
 
-            <div className="badge badge-outline rating rating-sm">
-              <input
-                type="radio"
-                name="rating-6"
-                className="mask mask-star-2 bg-orange-400 mr-1"
-                checked
-              />
-              {rating}
-            </div>
+            <Rating style={{ maxWidth: 150 }} value={rating} readOnly />
           </div>
 
           <h3 className="mb-3">
@@ -90,9 +85,11 @@ const ScholarshipDetails = () => {
           </h3>
 
           <div className="card-actions justify-end">
-            <button className="btn bg-orange-400 text-white">
-              Apply Scholarship
-            </button>
+            <Link to={'/payment'}>
+              <button className="btn bg-orange-400 text-white">
+                Apply Scholarship
+              </button>
+            </Link>
           </div>
         </div>
       </div>

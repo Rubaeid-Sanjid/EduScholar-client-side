@@ -5,7 +5,7 @@ import "@smastrom/react-rating/style.css";
 
 const ReviewCard = ({ review }) => {
   return (
-    <div className="card shadow-xl p-6 items-center">
+    <div className="card items-center">
       <div className="card-body">
         <div className="flex gap-3 mb-2">
           <div className="avatar">

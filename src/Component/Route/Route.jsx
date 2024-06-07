@@ -5,6 +5,7 @@ import Login from "../../Pages/Login/Login";
 import SignUp from "../../Pages/SignUp/SignUp";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import ScholarshipDetails from "../../Pages/ScholarshipDetails/ScholarshipDetails";
+import Payment from "../../Pages/Payment/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/scholarshipDetails/${params.id}`),
+      },
+      {
+        path: '/payment',
+        element: <Payment></Payment>
       },
     ],
   },
