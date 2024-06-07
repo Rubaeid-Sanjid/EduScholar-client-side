@@ -25,26 +25,32 @@ const Scholarship = ({ scholarshipItem }) => {
         </figure>
         <div className="card-body">
           <h2 className="card-title mb-4">{universityName}</h2>
+
           <h3 className="flex justify-between mb-2 pb-2 border-b-2">
             <span className="font-bold">Category: </span>
             {scholarshipCategory}
           </h3>
+
           <h3 className="flex justify-between mb-2 pb-2 border-b-2">
             <span className="font-bold">University Location: </span>
             {universityLocation.city}, {universityLocation.country}
           </h3>
+
           <h3 className="flex justify-between mb-2 pb-2 border-b-2">
             <span className="font-bold">Application Deadline: </span>
             {applicationDeadline}
           </h3>
+
           <h3 className="flex justify-between mb-2 pb-2 border-b-2">
             <span className="font-bold">Subject: </span>
             {subjectName}
           </h3>
+
           <h3 className="flex justify-between mb-2 pb-2 border-b-2">
             <span className="font-bold">Application Fees: </span>
             {applicationFees}
           </h3>
+
           <div className="flex justify-between">
             <h3 className="font-bold">Rating:</h3>
             <div className="badge badge-outline rating rating-sm">
@@ -57,6 +63,7 @@ const Scholarship = ({ scholarshipItem }) => {
               {rating}
             </div>
           </div>
+          
           <div className="card-actions justify-end mt-4">
             <Link to={`/scholarshipDetails/${_id}`}>
               <button className="btn bg-orange-400 text-white">
