@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import cardImg from "../../assets/images/credit_cards.jpg";
+import ModalForm from "../ModalForm/ModalForm";
 
 const CheckoutForm = ({ scholarshipId }) => {
   const { user } = useAuth();
@@ -17,6 +18,7 @@ const CheckoutForm = ({ scholarshipId }) => {
   const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
   const [error, setError] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const axiosSecure = useAxiosPrivate();
   const axiosPublic = useAxiosPublic();
@@ -60,6 +62,7 @@ const CheckoutForm = ({ scholarshipId }) => {
     } else {
       console.log(paymentMethod);
       setError("");
+      setIsModalOpen(true);
     }
 
     // confirm payment
@@ -105,49 +108,55 @@ const CheckoutForm = ({ scholarshipId }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="card md:w-1/2 mx-auto bg-base-100 shadow-xl image-full">
-        <figure>
-          <img src={cardImg} alt="" />
-        </figure>
-        <div className="card-body mt-6 text-white justify-evenly">
-          <div className="bg-base-300 py-6 px-3 rounded-2xl">
-          <CardElement
-            options={{
-              style: {
-                base: {
-                  fontSize: "18px",
-                  color: "#333333",
-                  "::placeholder": {
-                    color: "#333333",
+    <div>
+      <form onSubmit={handleSubmit}>
+        <div className="card md:w-1/2 mx-auto bg-base-100 shadow-xl image-full">
+          <figure>
+            <img src={cardImg} alt="" />
+          </figure>
+          <div className="card-body mt-6 text-white justify-evenly">
+            <div className="bg-base-300 py-6 px-3 rounded-2xl">
+              <CardElement
+                options={{
+                  style: {
+                    base: {
+                      fontSize: "18px",
+                      color: "#333333",
+                      "::placeholder": {
+                        color: "#333333",
+                      },
+                    },
+                    invalid: {
+                      color: "#FF0000",
+                    },
                   },
-                },
-                invalid: {
-                  color: "#FF0000",
-                },
-              },
-            }}
-          ></CardElement>
-          </div>
-          <div className="card-actions">
-            <button
-              type="submit"
-              className="btn w-full mt-6 bg-orange-400 text-white border-none"
-              disabled={!stripe || !clientSecret}
-            >
-              Pay
-            </button>
+                }}
+              ></CardElement>
+            </div>
+            <div className="card-actions">
+              <button
+                type="submit"
+                className="btn w-full mt-6 bg-orange-400 text-white border-none"
+                disabled={!stripe || !clientSecret}
+              >
+                Pay
+              </button>
+              <p className="text-red-600 my-1">{error}</p>
+              {transactionId && (
+                <p className="text-white my-3">
+                  Your transaction ID: {transactionId}
+                </p>
+              )}
+            </div>
           </div>
         </div>
-
-      <p className="text-red-600 my-1">{error}</p>
-      {transactionId && (
-        <p className="text-green-600 my-1">
-          Your transaction ID: {transactionId}
-        </p>
-      )}
+      </form>
+      <ModalForm
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        scholarships={scholarships}
+      />
     </div>
-    </form>
   );
 };
 
