@@ -11,7 +11,7 @@ const Payment = () => {
     const {scholarshipId} = useContext(scholarshipContext)
 
     return (
-        <div>
+        <div className="container mx-auto px-3 lg:px-12">
             {/* <SectionTitle className="mt-0" title={'Payment'}></SectionTitle> */}
             <div className="py-20"><h2>Payment</h2></div>
             <div>

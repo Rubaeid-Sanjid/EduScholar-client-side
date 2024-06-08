@@ -2,12 +2,13 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import cardImg from "../../assets/images/credit_cards.jpg";
 
-const CheckoutForm = ({scholarshipId}) => {
-  const {user} = useAuth();
+const CheckoutForm = ({ scholarshipId }) => {
+  const { user } = useAuth();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -16,16 +17,16 @@ const CheckoutForm = ({scholarshipId}) => {
   const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
   const [error, setError] = useState("");
-    
+
   const axiosSecure = useAxiosPrivate();
   const axiosPublic = useAxiosPublic();
 
-    const price = scholarships?.applicationFees.split("$")[1];
+  const price = scholarships?.applicationFees.split("$")[1];
 
   useEffect(() => {
     axiosPublic.get(`/scholarshipDetails/${scholarshipId}`).then((res) => {
-        setScholarships(res.data);
-      });
+      setScholarships(res.data);
+    });
 
     if (price > 0) {
       axiosSecure
@@ -90,55 +91,67 @@ const CheckoutForm = ({scholarshipId}) => {
 
         const res = await axiosSecure.post("/payment", paymentInfo);
 
-        if(res.data?.insertedId){
+        if (res.data?.insertedId) {
           Swal.fire({
             position: "top-end",
             icon: "success",
             title: "Thank you, Payment successful.",
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
           });
         }
       }
     }
   };
-  
+
   return (
     <form onSubmit={handleSubmit}>
-      <CardElement
-        options={{
-          style: {
-            base: {
-              fontSize: "16px",
-              color: "#424770",
-              "::placeholder": {
-                color: "#aab7c4",
+      <div className="card md:w-1/2 mx-auto bg-base-100 shadow-xl image-full">
+        <figure>
+          <img src={cardImg} alt="" />
+        </figure>
+        <div className="card-body mt-6 text-white justify-evenly">
+          <div className="bg-base-300 py-6 px-3 rounded-2xl">
+          <CardElement
+            options={{
+              style: {
+                base: {
+                  fontSize: "18px",
+                  color: "#333333",
+                  "::placeholder": {
+                    color: "#333333",
+                  },
+                },
+                invalid: {
+                  color: "#FF0000",
+                },
               },
-            },
-            invalid: {
-              color: "#9e2146",
-            },
-          },
-        }}
-      ></CardElement>
-      <button
-        type="submit"
-        className="btn my-2"
-        disabled={!stripe || !clientSecret}
-      >
-        Pay
-      </button>
+            }}
+          ></CardElement>
+          </div>
+          <div className="card-actions">
+            <button
+              type="submit"
+              className="btn w-full mt-6 bg-orange-400 text-white border-none"
+              disabled={!stripe || !clientSecret}
+            >
+              Pay
+            </button>
+          </div>
+        </div>
+
       <p className="text-red-600 my-1">{error}</p>
       {transactionId && (
         <p className="text-green-600 my-1">
           Your transaction ID: {transactionId}
         </p>
       )}
+    </div>
     </form>
   );
 };
 
 CheckoutForm.propTypes = {
-  scholarshipId:PropTypes.string
+  scholarshipId: PropTypes.string,
 };
 export default CheckoutForm;
