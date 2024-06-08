@@ -1,8 +1,40 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { useEffect, useState } from "react";
+import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import PropTypes from 'prop-types';
+import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({scholarshipId}) => {
+  const {user} = useAuth();
+
   const stripe = useStripe();
   const elements = useElements();
+
+  const [scholarships, setScholarships] = useState(null);
+  const [clientSecret, setClientSecret] = useState("");
+  const [transactionId, setTransactionId] = useState("");
+  const [error, setError] = useState("");
+    
+  const axiosSecure = useAxiosPrivate();
+  const axiosPublic = useAxiosPublic();
+
+    const price = scholarships?.applicationFees.split("$")[1];
+
+  useEffect(() => {
+    axiosPublic.get(`/scholarshipDetails/${scholarshipId}`).then((res) => {
+        setScholarships(res.data);
+      });
+
+    if (price > 0) {
+      axiosSecure
+        .post("/create-payment-intent", { price: price })
+        .then((res) => {
+          setClientSecret(res.data.clientSecret);
+        });
+    }
+  }, [axiosPublic, axiosSecure, scholarshipId, price]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,11 +55,54 @@ const CheckoutForm = () => {
     });
 
     if (error) {
-      console.log("Error", error);
+      setError(error.message);
     } else {
       console.log(paymentMethod);
+      setError("");
+    }
+
+    // confirm payment
+    const { paymentIntent, error: confirmError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: user.displayName || "anonymous",
+            email: user.email || "anonymous",
+          },
+        },
+      });
+
+    if (confirmError) {
+      console.log("Confirm error.");
+    } else {
+      if (paymentIntent.status === "succeeded") {
+        setTransactionId(paymentIntent.id);
+
+        const paymentInfo = {
+          email: user.email,
+          price: price,
+          transactionId: paymentIntent.id,
+          date: new Date(),
+          scholarshipId: scholarships?._id,
+          status: "pending",
+        };
+
+        const res = await axiosSecure.post("/payment", paymentInfo);
+
+        if(res.data?.insertedId){
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Thank you, Payment successful.",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+      }
     }
   };
+  
   return (
     <form onSubmit={handleSubmit}>
       <CardElement
@@ -49,18 +124,21 @@ const CheckoutForm = () => {
       <button
         type="submit"
         className="btn my-2"
-        // disabled={!stripe || !clientSecret}
+        disabled={!stripe || !clientSecret}
       >
         Pay
       </button>
-      {/* <p className="text-red-600 my-1">{error}</p>
+      <p className="text-red-600 my-1">{error}</p>
       {transactionId && (
         <p className="text-green-600 my-1">
           Your transaction ID: {transactionId}
         </p>
-      )} */}
+      )}
     </form>
   );
 };
 
+CheckoutForm.propTypes = {
+  scholarshipId:PropTypes.string
+};
 export default CheckoutForm;

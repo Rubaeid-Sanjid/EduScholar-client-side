@@ -3,6 +3,8 @@ import Reviews from "../../Component/Reviews/Reviews";
 
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
+import { useContext, useEffect } from "react";
+import { scholarshipContext } from "../../Component/ScholarshipContext/ScholarshipProvider";
 
 const ScholarshipDetails = () => {
   const scholarshipDetails = useLoaderData();
@@ -23,6 +25,12 @@ const ScholarshipDetails = () => {
     rating,
   } = scholarshipDetails;
 
+  const { setScholarshipId } = useContext(scholarshipContext);
+  
+  useEffect(() => {
+    setScholarshipId(_id);
+  }, [_id, setScholarshipId]);
+  
   return (
     <div className="container mx-auto lg:px-12 px-3 py-8 lg:py-32">
       <div className="card lg:card-side bg-base-100 shadow-xl">
