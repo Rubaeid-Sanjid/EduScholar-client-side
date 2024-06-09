@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const customStyles = {
   content: {
@@ -25,29 +26,45 @@ const customStyles = {
 };
 
 const ModalForm = ({ isOpen, onRequestClose, scholarships }) => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    // formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
-  const {user} = useAuth();
-const axiosSecure = useAxiosPrivate();
+  const { user } = useAuth();
+  const axiosSecure = useAxiosPrivate();
+  const axiosPublic = useAxiosPublic();
+
+  const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+  const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
   const onSubmit = async (data) => {
+    const imgFile = { image: data.photo[0] };
+
+    const resImg = await axiosPublic.post(image_hosting_api, imgFile, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
 
     const appliedScholarshipInfo = {
-      ...data,
+      phone: data.phone,
+      photo: resImg.data.data.display_url,
+      address: data.address,
+      gender: data.gender,
+      degree: data.degree,
+      ssc: data.ssc,
+      hsc: data.hsc,
+      universityName: data.universityName,
+      category: data.category,
+      subject: data.subject,
       userName: user.displayName,
       userEmail: user.email,
       scholarshipId: scholarships._id,
       date: new Date(),
-      }
+    };
 
-    const res = await axiosSecure.post('/appliedScholarship', appliedScholarshipInfo);
+    const res = await axiosSecure.post(
+      "/appliedScholarship",
+      appliedScholarshipInfo
+    );
 
-    if(res.data.insertedId){
+    if (res.data.insertedId) {
       Swal.fire({
         position: "center",
         title: "Congratulations!",
@@ -61,7 +78,9 @@ const axiosSecure = useAxiosPrivate();
   };
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={customStyles}>
-      <h2 className="text-center text-3xl font-bold">Please, Fill up this form</h2>
+      <h2 className="text-center text-3xl font-bold">
+        Please, Fill up this form
+      </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-control">
           <label className="label">
@@ -107,7 +126,9 @@ const axiosSecure = useAxiosPrivate();
             <span className="text-lg">Gender</span>
           </label>
           <select {...register("gender")}>
-          <option value="" defaultChecked>Select gender</option>
+            <option value="" defaultChecked>
+              Select gender
+            </option>
             <option value="female">Female</option>
             <option value="male">Male</option>
           </select>
@@ -118,7 +139,9 @@ const axiosSecure = useAxiosPrivate();
             <span className="text-lg">Applying Degree</span>
           </label>
           <select {...register("degree")}>
-            <option value="" defaultChecked>Select your degree</option>
+            <option value="" defaultChecked>
+              Select your degree
+            </option>
             <option value="diploma">Diploma</option>
             <option value="bachelor">Bachelor</option>
             <option value="masters">Masters</option>
@@ -163,7 +186,7 @@ const axiosSecure = useAxiosPrivate();
             className="input input-bordered"
             required
             {...register("universityName")}
-            value={scholarships.universityName}
+            value={scholarships?.universityName}
           />
         </div>
 
@@ -177,7 +200,7 @@ const axiosSecure = useAxiosPrivate();
             className="input input-bordered"
             required
             {...register("category")}
-            value={scholarships.scholarshipCategory}
+            value={scholarships?.scholarshipCategory}
           />
         </div>
 
@@ -191,13 +214,17 @@ const axiosSecure = useAxiosPrivate();
             className="input input-bordered"
             required
             {...register("subject")}
-            value={scholarships.subjectName}
+            value={scholarships?.subjectName}
           />
         </div>
 
-        <button className="btn bg-orange-400 text-white my-3 w-full">Apply</button>
+        <button className="btn bg-orange-400 text-white my-3 w-full">
+          Apply
+        </button>
       </form>
-      <button className="btn w-full" onClick={onRequestClose}>Close</button>
+      <button className="btn w-full" onClick={onRequestClose}>
+        Close
+      </button>
     </Modal>
   );
 };
