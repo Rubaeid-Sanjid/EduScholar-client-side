@@ -36,7 +36,7 @@ const SignUp = () => {
               user_name: data.name,
               user_password: data.password,
               user_photo: res.data.data.display_url,
-              // role: "user"
+              role: "admin"
             };
 
             axiosPublic.post("/users", userInfo).then((res) => {
@@ -47,7 +47,7 @@ const SignUp = () => {
                   icon: "success",
                   title: "Your account has been created",
                   showConfirmButton: false,
-                  timer: 1500,
+                  timer: 2000,
                 });
                 navigate("/");
               }

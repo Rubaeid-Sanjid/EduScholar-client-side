@@ -40,6 +40,7 @@ const AuthProvider = ({ children }) => {
   const googleLogin = () => {
     return signInWithPopup(auth, provider);
   };
+
   const logoutUser = () => {
     return signOut(auth);
   };
@@ -47,7 +48,7 @@ const AuthProvider = ({ children }) => {
   const axiosPublic = useAxiosPublic();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async(currentUser) => {
       setUser(currentUser);
 
       if (currentUser) {
@@ -57,9 +58,15 @@ const AuthProvider = ({ children }) => {
             localStorage.setItem("token", res.data.token);
           }
         });
-      } else {
-        localStorage.removeItem("token");
-      }
+
+        const res = await axiosPublic.get(`/users/${currentUser.email}`);
+        const userData = res.data;
+        
+        console.log({...currentUser, role: userData.role});
+        setUser({...currentUser, role: userData.role})
+        } else {
+          localStorage.removeItem("token");
+          }
 
       setLoading(false);
     });

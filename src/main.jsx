@@ -6,16 +6,16 @@ import { router } from "./Component/Route/Route";
 import AuthProvider from "./Component/AuthProvider/AuthProvider";
 import ScholarshipProvider from "./Component/ScholarshipContext/ScholarshipProvider";
 // In your main component or App.js
-import Modal from 'react-modal';
+import Modal from "react-modal";
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-      <ScholarshipProvider>
-    <AuthProvider>
+    <ScholarshipProvider>
+      <AuthProvider>
         <RouterProvider router={router}></RouterProvider>
-    </AuthProvider>
-      </ScholarshipProvider>
+      </AuthProvider>
+    </ScholarshipProvider>
   </React.StrictMode>
 );

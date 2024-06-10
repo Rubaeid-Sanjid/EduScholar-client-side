@@ -11,10 +11,10 @@ const Navbar = () => {
       <NavLink to={"/AllScholarship"} className={"my-2 lg:my-0 mx-2"}>
         All Scholarship
       </NavLink>
-      <NavLink to={"/UserDashboard"} className={"my-2 lg:my-0 mx-2"}>
+      <NavLink to={"/dashboard"} className={"my-2 lg:my-0 mx-2"}>
         User Dashboard
       </NavLink>
-      <NavLink to={"/AdminDashboard"} className={"my-2 lg:my-0 mx-2"}>
+      <NavLink to={"/dashboard"} className={"my-2 lg:my-0 mx-2"}>
         Admin Dashboard
       </NavLink>
     </>

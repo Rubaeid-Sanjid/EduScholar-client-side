@@ -6,6 +6,10 @@ import SignUp from "../../Pages/SignUp/SignUp";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import ScholarshipDetails from "../../Pages/ScholarshipDetails/ScholarshipDetails";
 import Payment from "../../Pages/Payment/Payment";
+import Dashboard from "../../Pages/Dashboard/Dashboard";
+import MyProfile from "../../Pages/Dashboard/User/MyProfile";
+import MyApplication from "../../Pages/Dashboard/User/MyApplication";
+import MyReviews from "../../Pages/Dashboard/User/MyReviews";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +42,24 @@ export const router = createBrowserRouter([
         path: '/payment',
         element: <Payment></Payment>
       },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path: "myProfile",
+        element: <MyProfile></MyProfile>,
+      },
+      {
+        path: "myApplication",
+        element: <MyApplication></MyApplication>,
+      },
+      {
+        path: "myReviews",
+        element: <MyReviews></MyReviews>,
+      },      
     ],
   },
 ]);
