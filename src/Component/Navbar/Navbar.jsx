@@ -3,6 +3,8 @@ import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, logoutUser } = useAuth();
+
   const navlink = (
     <>
       <NavLink to={"/"} className={"my-2 lg:my-0 mx-2"}>
@@ -11,31 +13,34 @@ const Navbar = () => {
       <NavLink to={"/AllScholarship"} className={"my-2 lg:my-0 mx-2"}>
         All Scholarship
       </NavLink>
-      <NavLink to={"/dashboard"} className={"my-2 lg:my-0 mx-2"}>
-        User Dashboard
-      </NavLink>
-      <NavLink to={"/dashboard"} className={"my-2 lg:my-0 mx-2"}>
-        Admin Dashboard
-      </NavLink>
+      {user?.role === "user" && (
+        <NavLink to={"/dashboard"} className={"my-2 lg:my-0 mx-2"}>
+          User Dashboard
+        </NavLink>
+      )}
+      {user?.role === "admin" && (
+        <NavLink to={"/dashboard"} className={"my-2 lg:my-0 mx-2"}>
+          Admin Dashboard
+        </NavLink>
+      )}
     </>
   );
 
-  const { user, logoutUser } = useAuth();
-
-  const handleLogout =()=>{
+  const handleLogout = () => {
     logoutUser()
-    .then(() => {
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Sign-out successful",
-        showConfirmButton: false,
-        timer: 1500
+      .then(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Sign-out successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
       });
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
+  };
 
   return (
     <div>
@@ -89,7 +94,10 @@ const Navbar = () => {
                 </div>
               </div>
 
-              <button onClick={handleLogout} className="btn btn-xs w-full md:w-2/5 lg:btn-md ml-2 bg-orange-400 text-white border-none">
+              <button
+                onClick={handleLogout}
+                className="btn btn-xs w-full md:w-2/5 lg:btn-md ml-2 bg-orange-400 text-white border-none"
+              >
                 Logout
               </button>
             </div>

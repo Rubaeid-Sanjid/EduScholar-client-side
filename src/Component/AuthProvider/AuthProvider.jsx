@@ -62,7 +62,6 @@ const AuthProvider = ({ children }) => {
         const res = await axiosPublic.get(`/users/${currentUser.email}`);
         const userData = res.data;
         
-        console.log({...currentUser, role: userData.role});
         setUser({...currentUser, role: userData.role})
         } else {
           localStorage.removeItem("token");
