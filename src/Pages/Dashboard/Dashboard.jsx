@@ -2,7 +2,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 
 const Dashboard = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
 
   return (
     <div>
@@ -26,7 +26,7 @@ const Dashboard = () => {
           ></label>
           <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
             {/* Sidebar content here */}
-             {user?.role === "admin" ? (
+            {user?.role === "admin" ? (
               <>
                 <li>
                   <NavLink to={"adminProfile"}>Admin Profile</NavLink>
@@ -51,6 +51,17 @@ const Dashboard = () => {
                 </li>
               </>
             )}
+            <div className="divider"></div>
+            <li>
+              <NavLink to={"/"} className={"my-2 lg:my-0 mx-2"}>
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={"/AllScholarship"} className={"my-2 lg:my-0 mx-2"}>
+                All Scholarship
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>
