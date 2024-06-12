@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
+import Swal from "sweetalert2";
 
 const customStyles = {
   content: {
@@ -28,18 +30,33 @@ const ReviewModalForm = ({ isOpen, onRequestClose, scholarship }) => {
 
   const { user } = useAuth();
 
-  const onSubmit = (data) => {
+  const axiosSecure = useAxiosPrivate();
+
+  const onSubmit = async (data) => {
     const reviewInfo = {
       scholarshipId: scholarship?._id,
       reviewerImage: user?.photoURL,
       reviewerName: user?.displayName,
       reviewerEmail: user?.email,
       reviewDate: data.date,
-      ratingPoint: data.rating,
+      ratingPoint: parseFloat(data.rating),
       reviewerComments: data.comment,
       scholarshipName: scholarship?.scholarshipCategory,
       universityName: scholarship?.universityName,
     };
+
+    const res = await axiosSecure.post("/reviews", reviewInfo);
+    if (res.data.insertedId) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Your review has been posted",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      reset();
+      onRequestClose(true);
+    }
   };
 
   return (
@@ -53,9 +70,12 @@ const ReviewModalForm = ({ isOpen, onRequestClose, scholarship }) => {
             <span className="text-lg">Rating point</span>
           </label>
           <input
-            type="text"
+            type="number"
             placeholder="Rating point"
             className="input input-bordered"
+            max={5}
+            min={1}
+            step="any"
             required
             {...register("rating")}
             defaultValue={""}
