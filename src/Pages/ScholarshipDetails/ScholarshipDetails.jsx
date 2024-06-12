@@ -8,6 +8,7 @@ import { scholarshipContext } from "../../Component/ScholarshipContext/Scholarsh
 
 const ScholarshipDetails = () => {
   const scholarshipDetails = useLoaderData();
+  console.log(scholarshipDetails);
 
   const {
     _id,
@@ -46,7 +47,7 @@ const ScholarshipDetails = () => {
           </div>
 
           <h3 className="mb-3">
-            {universityLocation.city}, {universityLocation.country}
+            {universityLocation?.city}, {universityLocation?.country}
           </h3>
 
           <h3 className="mb-3">

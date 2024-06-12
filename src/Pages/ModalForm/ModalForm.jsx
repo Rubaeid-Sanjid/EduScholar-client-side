@@ -57,6 +57,11 @@ const ModalForm = ({ isOpen, onRequestClose, scholarships }) => {
       userEmail: user.email,
       scholarshipId: scholarships._id,
       date: new Date(),
+
+      serviceCharge: scholarships.serviceCharge,
+      applicationFees: scholarships.applicationFees,
+      status: "Pending",
+      feedback: "",
     };
 
     const res = await axiosSecure.post(

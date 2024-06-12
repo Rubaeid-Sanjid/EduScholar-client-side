@@ -38,10 +38,12 @@ const AuthProvider = ({ children }) => {
 
   const provider = new GoogleAuthProvider();
   const googleLogin = () => {
+    setLoading(true);
     return signInWithPopup(auth, provider);
   };
 
   const logoutUser = () => {
+    setLoading(true);
     return signOut(auth);
   };
 
