@@ -1,10 +1,41 @@
 import { Link } from "react-router-dom";
 import useAppliedScholarship from "../../../Hooks/useAppliedScholarship";
+import Swal from "sweetalert2";
+import { useState } from "react";
+import UpdateModalForm from "../../ModalForm/UpdateModalForm";
 
 
 const MyApplication = () => {
   const [myAppliedScholarship] = useAppliedScholarship();
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedScholarship, setSelectedScholarship] = useState(null);
+
+  const handleEdit = (appliedScholarship, status)=>{
+    if(status === 'Processing'){
+      Swal.fire({
+        icon: "error",
+        title: "Sorry! Can not Edit. Application is processing",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
+      });
+    }else{
+      setSelectedScholarship(appliedScholarship);
+      setIsModalOpen(true);
+    }
+  }
   return (
     <div>
       <h2 className="text-3xl lg:text-4xl font-medium text-center my-8">My Application</h2>
@@ -48,13 +79,13 @@ const MyApplication = () => {
                   </Link>
                 </td>
                 <td>
-                  <button className="btn-sm bg-orange-400 text-white btn">
+                  <button onClick={()=>handleEdit(appliedScholarship, appliedScholarship.status)} className="btn-sm bg-orange-400 text-white btn">
                     Edit
                   </button>
                 </td>
                 <td>
                   <button className="btn-sm bg-orange-400 text-white btn">
-                    Cancel
+                    Cancel Apply
                   </button>
                 </td>
                 <td>
@@ -68,6 +99,13 @@ const MyApplication = () => {
           </tbody>
         </table>
       </div>
+      {selectedScholarship && (
+        <UpdateModalForm
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
+          selectedScholarship={selectedScholarship}
+        />
+      )}
     </div>
   );
 };
