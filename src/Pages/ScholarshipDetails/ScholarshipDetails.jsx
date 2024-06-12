@@ -8,7 +8,6 @@ import { scholarshipContext } from "../../Component/ScholarshipContext/Scholarsh
 
 const ScholarshipDetails = () => {
   const scholarshipDetails = useLoaderData();
-  console.log(scholarshipDetails);
 
   const {
     _id,

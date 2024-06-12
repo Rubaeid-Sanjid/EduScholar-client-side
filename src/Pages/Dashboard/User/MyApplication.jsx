@@ -3,16 +3,16 @@ import useAppliedScholarship from "../../../Hooks/useAppliedScholarship";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import UpdateModalForm from "../../ModalForm/UpdateModalForm";
-
+import useAxiosPrivate from "../../../Hooks/useAxiosPrivate";
 
 const MyApplication = () => {
-  const [myAppliedScholarship] = useAppliedScholarship();
+  const [myAppliedScholarship, refetch] = useAppliedScholarship();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedScholarship, setSelectedScholarship] = useState(null);
 
-  const handleEdit = (appliedScholarship, status)=>{
-    if(status === 'Processing'){
+  const handleEdit = (appliedScholarship, status) => {
+    if (status === "Processing") {
       Swal.fire({
         icon: "error",
         title: "Sorry! Can not Edit. Application is processing",
@@ -21,24 +21,55 @@ const MyApplication = () => {
             animate__animated
             animate__fadeInUp
             animate__faster
-          `
+          `,
         },
         hideClass: {
           popup: `
             animate__animated
             animate__fadeOutDown
             animate__faster
-          `
-        }
+          `,
+        },
       });
-    }else{
+    } else {
       setSelectedScholarship(appliedScholarship);
       setIsModalOpen(true);
     }
-  }
+  };
+
+  const axiosSecure = useAxiosPrivate();
+
+  const handleCancel = (appliedScholarshipId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(
+          `/appliedScholarship/${appliedScholarshipId}`
+        );
+
+        if (res.data.deletedCount === 1) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your application has been deleted.",
+            icon: "success",
+          });
+          refetch();
+        }
+      }
+    });
+  };
   return (
     <div>
-      <h2 className="text-3xl lg:text-4xl font-medium text-center my-8">My Application</h2>
+      <h2 className="text-3xl lg:text-4xl font-medium text-center my-8">
+        My Application
+      </h2>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
@@ -79,12 +110,20 @@ const MyApplication = () => {
                   </Link>
                 </td>
                 <td>
-                  <button onClick={()=>handleEdit(appliedScholarship, appliedScholarship.status)} className="btn-sm bg-orange-400 text-white btn">
+                  <button
+                    onClick={() =>
+                      handleEdit(appliedScholarship, appliedScholarship.status)
+                    }
+                    className="btn-sm bg-orange-400 text-white btn"
+                  >
                     Edit
                   </button>
                 </td>
                 <td>
-                  <button className="btn-sm bg-orange-400 text-white btn">
+                  <button
+                    onClick={() => handleCancel(appliedScholarship._id)}
+                    className="btn-sm bg-orange-400 text-white btn"
+                  >
                     Cancel Apply
                   </button>
                 </td>
@@ -93,7 +132,6 @@ const MyApplication = () => {
                     Add review
                   </button>
                 </td>
-                <td>{appliedScholarship._id}</td>
               </tr>
             ))}
           </tbody>

@@ -79,6 +79,7 @@ const ModalForm = ({ isOpen, onRequestClose, scholarships }) => {
         timer: 3000,
       });
       reset();
+      onRequestClose(true);
     }
   };
   return (

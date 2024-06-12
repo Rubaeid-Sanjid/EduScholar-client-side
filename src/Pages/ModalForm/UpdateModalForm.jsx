@@ -73,6 +73,7 @@ const UpdateModalForm = ({ isOpen, onRequestClose, selectedScholarship }) => {
         showConfirmButton: false,
         timer: 3000,
       });
+      onRequestClose(true);
     }
   };
   return (
