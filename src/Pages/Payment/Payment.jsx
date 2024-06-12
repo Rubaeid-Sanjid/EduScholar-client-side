@@ -13,7 +13,7 @@ const Payment = () => {
     return (
         <div className="container mx-auto px-3 lg:px-12">
             {/* <SectionTitle className="mt-0" title={'Payment'}></SectionTitle> */}
-            <div className="py-20"><h2>Payment</h2></div>
+            <div className="pt-4 lg:pt-32 pb-5 text-center text-3xl lg:text-4xl font-medium"><h2>Payment Gateway</h2></div>
             <div>
                 <Elements stripe={stripePromise}>
                     <CheckoutForm scholarshipId={scholarshipId}></CheckoutForm>

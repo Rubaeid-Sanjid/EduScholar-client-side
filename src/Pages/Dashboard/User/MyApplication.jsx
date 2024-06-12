@@ -4,12 +4,16 @@ import Swal from "sweetalert2";
 import { useState } from "react";
 import UpdateModalForm from "../../ModalForm/UpdateModalForm";
 import useAxiosPrivate from "../../../Hooks/useAxiosPrivate";
+import ReviewModalForm from "../../ModalForm/ReviewModalForm";
 
 const MyApplication = () => {
   const [myAppliedScholarship, refetch] = useAppliedScholarship();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [scholarship, setScholarship] = useState(null);
   const [selectedScholarship, setSelectedScholarship] = useState(null);
+
+  const axiosSecure = useAxiosPrivate();
 
   const handleEdit = (appliedScholarship, status) => {
     if (status === "Processing") {
@@ -37,7 +41,12 @@ const MyApplication = () => {
     }
   };
 
-  const axiosSecure = useAxiosPrivate();
+  const handleReview = async (scholarshipId) => {
+    setIsModalOpen(true);
+
+    const res = await axiosSecure.get(`/scholarships/${scholarshipId}`);
+    setScholarship(res.data);
+  };
 
   const handleCancel = (appliedScholarshipId) => {
     Swal.fire({
@@ -128,7 +137,12 @@ const MyApplication = () => {
                   </button>
                 </td>
                 <td>
-                  <button className="btn-sm bg-orange-400 text-white btn">
+                  <button
+                    onClick={() =>
+                      handleReview(appliedScholarship.scholarshipId)
+                    }
+                    className="btn-sm bg-orange-400 text-white btn"
+                  >
                     Add review
                   </button>
                 </td>
@@ -144,6 +158,11 @@ const MyApplication = () => {
           selectedScholarship={selectedScholarship}
         />
       )}
+      <ReviewModalForm
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        scholarship={scholarship}
+      />
     </div>
   );
 };
