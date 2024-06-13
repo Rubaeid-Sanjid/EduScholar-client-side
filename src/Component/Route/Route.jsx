@@ -10,11 +10,13 @@ import Dashboard from "../../Pages/Dashboard/Dashboard";
 import MyProfile from "../../Pages/Dashboard/User/MyProfile";
 import MyApplication from "../../Pages/Dashboard/User/MyApplication";
 import MyReviews from "../../Pages/Dashboard/User/MyReviews";
+import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -47,6 +49,7 @@ export const router = createBrowserRouter([
   {
     path: "dashboard",
     element: <Dashboard></Dashboard>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "myProfile",

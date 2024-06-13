@@ -2,6 +2,8 @@ import Modal from "react-modal";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import useAxiosPrivate from "../../../Hooks/useAxiosPrivate";
+import useAuth from "../../../Hooks/useAuth";
 
 const customStyles = {
   content: {
@@ -23,21 +25,32 @@ const customStyles = {
 };
 
 const MyReviews = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userReviews, setUserReviews] = useState(null);
 
-    useEffect(()=>{
-        if(location.pathname === '/dashboard/myReviews'){
-            setIsModalOpen(true);
-        }
-    },[])
+  const axiosSecure = useAxiosPrivate();
+  const { user } = useAuth();
 
-    const onRequestClose=()=>{
-        setIsModalOpen(false);
-        navigate('/dashboard')
+  useEffect(() => {
+    if (location.pathname === "/dashboard/myReviews") {
+      setIsModalOpen(true);
     }
+  }, []);
+
+  async () => {
+    const res = await axiosSecure.get(`/reviews/${user.email}`);
+    console.log(res.data);
+    setUserReviews(res.data);
+  };
+
+  const onRequestClose = () => {
+    setIsModalOpen(false);
+    navigate("/dashboard");
+  };
+
   return (
     <div>
       <h2 className="text-3xl lg:text-4xl font-medium text-center my-8">
@@ -48,10 +61,35 @@ const MyReviews = () => {
         onRequestClose={onRequestClose}
         style={customStyles}
       >
-        
+        <div className="overflow-x-auto">
+          <table className="table">
+            {/* head */}
+            <thead>
+              <tr>
+                <th></th>
+                <th>Scholarship name</th>
+                <th>University name</th>
+                <th>Review comments</th>
+                <th>Review date</th>
+                <th>Action</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {userReviews?.map((review, idx) => (
+                <tr key={review._id} className="hover">
+                  <th>{idx + 1}</th>
+                  <td>Hart Hagerty</td>
+                  <td>Desktop Support Technician</td>
+                  <td>Purple</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <button className="btn w-full" onClick={onRequestClose}>
-        Close
-      </button>
+          Close
+        </button>
       </Modal>
     </div>
   );

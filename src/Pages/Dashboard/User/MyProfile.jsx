@@ -2,7 +2,6 @@ import useAuth from "../../../Hooks/useAuth";
 
 const MyProfile = () => {
   const { user } = useAuth();
-  console.log(user);
   return (
     <div className="container px-3 lg:px-12 mx-auto">
       <h2 className="text-3xl lg:text-4xl font-medium text-center my-8">My Profile</h2>
