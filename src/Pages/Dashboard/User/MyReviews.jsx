@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../../Hooks/useAxiosPrivate";
 import useAuth from "../../../Hooks/useAuth";
+import UpdateReviewModalForm from "../../ModalForm/UpdateReviewModalForm";
 
 const customStyles = {
   content: {
@@ -30,6 +31,7 @@ const MyReviews = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userReviews, setUserReviews] = useState(null);
+  const [updateReview, setUpdateReview] = useState(null);
 
   const axiosSecure = useAxiosPrivate();
   const { user } = useAuth();
@@ -48,11 +50,14 @@ const MyReviews = () => {
     getReviews();
   }, []);
 
-  
-
   const onRequestClose = () => {
     setIsModalOpen(false);
     navigate("/dashboard");
+  };
+
+  const handleEdit = (selectedReview) => {
+    setUpdateReview(selectedReview);
+    setIsModalOpen(true);
   };
 
   return (
@@ -87,8 +92,19 @@ const MyReviews = () => {
                   <td>{review.universityName}</td>
                   <td>{review.reviewerComments}</td>
                   <td>{review.reviewDate}</td>
-                  <td><button className="btn bg-orange-400 text-white btn-md">Edit</button></td>
-                  <td><button className="btn bg-orange-400 text-white btn-md">Delete</button></td>
+                  <td>
+                    <button
+                      onClick={()=>handleEdit(review)}
+                      className="btn bg-orange-400 text-white btn-md"
+                    >
+                      Edit
+                    </button>
+                  </td>
+                  <td>
+                    <button className="btn bg-orange-400 text-white btn-md">
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -98,6 +114,11 @@ const MyReviews = () => {
           Close
         </button>
       </Modal>
+      {updateReview && <UpdateReviewModalForm
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        updateReview={updateReview}
+      ></UpdateReviewModalForm>}
     </div>
   );
 };
@@ -105,6 +126,5 @@ const MyReviews = () => {
 MyReviews.propTypes = {
   isOpen: PropTypes.bool,
   onRequestClose: PropTypes.func,
-  // scholarship: PropTypes.object,
 };
 export default MyReviews;
