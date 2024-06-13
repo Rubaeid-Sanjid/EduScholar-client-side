@@ -20,13 +20,13 @@ const MyProfile = () => {
               <span>Name: </span>
               {user?.displayName}
             </h1>
-            <h3 className="my-3 flex justify-between items-center gap-4 py-4 border-b">
-              <span className="text-2xl font-medium">Email:</span>
+            <h3 className="text-2xl my-3 flex justify-between items-center gap-4 py-4 border-b">
+              <span className="font-medium">Email:</span>
               {user?.email}
             </h3>
-            {user?.role === "moderator" && (
-              <h3 className="my-3 flex justify-between items-center gap-4 py-4 border-b">
-                <span className="text-2xl font-medium">Role:</span>
+            {(user?.role === "moderator" || user?.role === "admin") && (
+              <h3 className="text-2xl my-3 flex justify-between items-center gap-4 py-4 border-b">
+                <span className="font-medium">Role:</span>
                 {user?.role}
               </h3>
             )}

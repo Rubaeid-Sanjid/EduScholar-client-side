@@ -29,7 +29,26 @@ const Dashboard = () => {
             {user?.role === "admin" ? (
               <>
                 <li>
-                  <NavLink to={"adminProfile"}>Admin Profile</NavLink>
+                  <NavLink to={"myProfile"}>Admin Profile</NavLink>
+                </li>
+                <li>
+                  <NavLink to={"addScholarship"}>Add Scholarship</NavLink>
+                </li>
+                <li>
+                  <NavLink to={"manageScholarships"}>
+                    Manage Scholarships
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to={"allAppliedScholarship"}>
+                    Manage applied Scholarship{" "}
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to={"manageUsers"}>Manage Users</NavLink>
+                </li>
+                <li>
+                  <NavLink to={"allReviews"}>Manage reviews</NavLink>
                 </li>
               </>
             ) : user?.role === "moderator" ? (

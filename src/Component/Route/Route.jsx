@@ -15,6 +15,7 @@ import ManageScholarships from "../../Pages/Dashboard/Moderator/ManageScholarshi
 import AllReviews from "../../Pages/Dashboard/Moderator/AllReviews";
 import AllAppliedScholarship from "../../Pages/Dashboard/Moderator/AllAppliedScholarship";
 import AddScholarship from "../../Pages/Dashboard/Moderator/AddScholarship";
+import ManageUsers from "../../Pages/Dashboard/Admin/ManageUsers";
 
 export const router = createBrowserRouter([
   {
@@ -45,8 +46,8 @@ export const router = createBrowserRouter([
           fetch(`http://localhost:5000/scholarshipDetails/${params.id}`),
       },
       {
-        path: '/payment',
-        element: <Payment></Payment>
+        path: "/payment",
+        element: <Payment></Payment>,
       },
     ],
   },
@@ -66,23 +67,28 @@ export const router = createBrowserRouter([
       {
         path: "myReviews",
         element: <MyReviews></MyReviews>,
-      },      
+      },
+      // Moderator & Admin Route
       {
         path: "manageScholarships",
         element: <ManageScholarships></ManageScholarships>,
-      },      
+      },
       {
         path: "allReviews",
         element: <AllReviews></AllReviews>,
-      },      
+      },
       {
         path: "allAppliedScholarship",
         element: <AllAppliedScholarship></AllAppliedScholarship>,
-      },      
+      },
       {
         path: "addScholarship",
         element: <AddScholarship></AddScholarship>,
-      },      
+      },
+      {
+        path: "manageUsers",
+        element: <ManageUsers></ManageUsers>,
+      },
     ],
   },
 ]);
