@@ -113,7 +113,7 @@ const MyApplication = () => {
                 <td>{appliedScholarship.status}</td>
                 <td>
                   <Link to={`/scholarshipDetails/${appliedScholarship._id}`}>
-                    <button className="btn-sm bg-orange-400 text-white btn">
+                    <button className="btn-md bg-orange-400 text-white btn">
                       Details
                     </button>
                   </Link>
@@ -123,7 +123,7 @@ const MyApplication = () => {
                     onClick={() =>
                       handleEdit(appliedScholarship, appliedScholarship.status)
                     }
-                    className="btn-sm bg-orange-400 text-white btn"
+                    className="btn-md bg-orange-400 text-white btn"
                   >
                     Edit
                   </button>
@@ -131,9 +131,9 @@ const MyApplication = () => {
                 <td>
                   <button
                     onClick={() => handleCancel(appliedScholarship._id)}
-                    className="btn-sm bg-orange-400 text-white btn"
+                    className="btn-md bg-orange-400 text-white btn"
                   >
-                    Cancel Apply
+                    Cancel apply
                   </button>
                 </td>
                 <td>
@@ -141,7 +141,7 @@ const MyApplication = () => {
                     onClick={() =>
                       handleReview(appliedScholarship.scholarshipId)
                     }
-                    className="btn-sm bg-orange-400 text-white btn"
+                    className="btn-md bg-orange-400 text-white btn"
                   >
                     Add review
                   </button>

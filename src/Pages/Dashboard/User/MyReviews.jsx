@@ -38,13 +38,17 @@ const MyReviews = () => {
     if (location.pathname === "/dashboard/myReviews") {
       setIsModalOpen(true);
     }
+
+    const getReviews = async () => {
+      const res = await axiosSecure.get(`/reviews/by-email/${user.email}`);
+      console.log(res.data);
+      setUserReviews(res.data);
+    };
+
+    getReviews();
   }, []);
 
-  async () => {
-    const res = await axiosSecure.get(`/reviews/${user.email}`);
-    console.log(res.data);
-    setUserReviews(res.data);
-  };
+  
 
   const onRequestClose = () => {
     setIsModalOpen(false);
@@ -79,9 +83,12 @@ const MyReviews = () => {
               {userReviews?.map((review, idx) => (
                 <tr key={review._id} className="hover">
                   <th>{idx + 1}</th>
-                  <td>Hart Hagerty</td>
-                  <td>Desktop Support Technician</td>
-                  <td>Purple</td>
+                  <td>{review.scholarshipName}</td>
+                  <td>{review.universityName}</td>
+                  <td>{review.reviewerComments}</td>
+                  <td>{review.reviewDate}</td>
+                  <td><button className="btn bg-orange-400 text-white btn-md">Edit</button></td>
+                  <td><button className="btn bg-orange-400 text-white btn-md">Delete</button></td>
                 </tr>
               ))}
             </tbody>
