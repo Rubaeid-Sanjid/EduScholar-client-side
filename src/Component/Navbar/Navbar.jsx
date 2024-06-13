@@ -13,7 +13,7 @@ const Navbar = () => {
       <NavLink to={"/AllScholarship"} className={"my-2 lg:my-0 mx-2"}>
         All Scholarship
       </NavLink>
-      {user?.role === "user" && (
+      {(user?.role === "user" || user?.role === "moderator") && (
         <NavLink to={"/dashboard"} className={"my-2 lg:my-0 mx-2"}>
           User Dashboard
         </NavLink>

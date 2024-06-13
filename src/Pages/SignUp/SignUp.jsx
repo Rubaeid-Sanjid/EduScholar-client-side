@@ -36,7 +36,7 @@ const SignUp = () => {
               user_name: data.name,
               user_password: data.password,
               user_photo: res.data.data.display_url,
-              role: "admin"
+              role: "moderator"
             };
 
             axiosPublic.post("/users", userInfo).then((res) => {

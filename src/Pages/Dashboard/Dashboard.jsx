@@ -35,7 +35,7 @@ const Dashboard = () => {
             ) : user?.role === "moderator" ? (
               <>
                 <li>
-                  <NavLink to={"moderatorProfile"}>Moderator Profile</NavLink>
+                  <NavLink to={"myProfile"}>My Profile</NavLink>
                 </li>
               </>
             ) : (
