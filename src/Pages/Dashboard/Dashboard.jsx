@@ -37,6 +37,22 @@ const Dashboard = () => {
                 <li>
                   <NavLink to={"myProfile"}>My Profile</NavLink>
                 </li>
+                <li>
+                  <NavLink to={"manageScholarships"}>
+                    Manage Scholarships
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to={"allReviews"}>All reviews</NavLink>
+                </li>
+                <li>
+                  <NavLink to={"allAppliedScholarship"}>
+                    All applied Scholarship{" "}
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to={"addScholarship"}>Add Scholarship</NavLink>
+                </li>
               </>
             ) : (
               <>

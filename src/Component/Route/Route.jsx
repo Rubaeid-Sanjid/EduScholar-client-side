@@ -11,6 +11,10 @@ import MyProfile from "../../Pages/Dashboard/User/MyProfile";
 import MyApplication from "../../Pages/Dashboard/User/MyApplication";
 import MyReviews from "../../Pages/Dashboard/User/MyReviews";
 import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
+import ManageScholarships from "../../Pages/Dashboard/Moderator/ManageScholarships";
+import AllReviews from "../../Pages/Dashboard/Moderator/AllReviews";
+import AllAppliedScholarship from "../../Pages/Dashboard/Moderator/AllAppliedScholarship";
+import AddScholarship from "../../Pages/Dashboard/Moderator/AddScholarship";
 
 export const router = createBrowserRouter([
   {
@@ -62,6 +66,22 @@ export const router = createBrowserRouter([
       {
         path: "myReviews",
         element: <MyReviews></MyReviews>,
+      },      
+      {
+        path: "manageScholarships",
+        element: <ManageScholarships></ManageScholarships>,
+      },      
+      {
+        path: "allReviews",
+        element: <AllReviews></AllReviews>,
+      },      
+      {
+        path: "allAppliedScholarship",
+        element: <AllAppliedScholarship></AllAppliedScholarship>,
+      },      
+      {
+        path: "addScholarship",
+        element: <AddScholarship></AddScholarship>,
       },      
     ],
   },
