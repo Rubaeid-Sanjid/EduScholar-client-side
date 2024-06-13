@@ -36,7 +36,7 @@ const UpdateReviewModalForm = ({ isOpen, onRequestClose, updateReview }) => {
     };
 
     const res = await axiosSecure.patch(`/reviews/${updateReview._id}`, updatedReviewInfo);
-    if (res.data.modifiedCount === 1) {
+    if (res.data.modifiedCount > 0) {
       Swal.fire({
         position: "center",
         icon: "success",

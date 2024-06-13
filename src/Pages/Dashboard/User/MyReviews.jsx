@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../../Hooks/useAxiosPrivate";
 import useAuth from "../../../Hooks/useAuth";
 import UpdateReviewModalForm from "../../ModalForm/UpdateReviewModalForm";
+import Swal from "sweetalert2";
 
 const customStyles = {
   content: {
@@ -40,24 +41,47 @@ const MyReviews = () => {
     if (location.pathname === "/dashboard/myReviews") {
       setIsModalOpen(true);
     }
-
-    const getReviews = async () => {
-      const res = await axiosSecure.get(`/reviews/by-email/${user.email}`);
-      console.log(res.data);
-      setUserReviews(res.data);
-    };
-
     getReviews();
   }, []);
+
+  const getReviews = async () => {
+    const res = await axiosSecure.get(`/reviews/by-email/${user.email}`);
+    console.log(res.data);
+    setUserReviews(res.data);
+  };
 
   const onRequestClose = () => {
     setIsModalOpen(false);
     navigate("/dashboard");
   };
 
-  const handleEdit = (selectedReview) => {
+  const handleEditReview = (selectedReview) => {
     setUpdateReview(selectedReview);
     setIsModalOpen(true);
+  };
+
+  const handleDeleteReview = (selectedReviewId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/reviews/${selectedReviewId}`);
+        if (res.data.deletedCount === 1) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your review has been deleted.",
+            icon: "success",
+          });
+          getReviews();
+        }
+      }
+    });
   };
 
   return (
@@ -94,14 +118,17 @@ const MyReviews = () => {
                   <td>{review.reviewDate}</td>
                   <td>
                     <button
-                      onClick={()=>handleEdit(review)}
+                      onClick={() => handleEditReview(review)}
                       className="btn bg-orange-400 text-white btn-md"
                     >
                       Edit
                     </button>
                   </td>
                   <td>
-                    <button className="btn bg-orange-400 text-white btn-md">
+                    <button
+                      onClick={() => handleDeleteReview(review._id)}
+                      className="btn bg-orange-400 text-white btn-md"
+                    >
                       Delete
                     </button>
                   </td>
@@ -114,11 +141,13 @@ const MyReviews = () => {
           Close
         </button>
       </Modal>
-      {updateReview && <UpdateReviewModalForm
-        isOpen={isModalOpen}
-        onRequestClose={() => setIsModalOpen(false)}
-        updateReview={updateReview}
-      ></UpdateReviewModalForm>}
+      {updateReview && (
+        <UpdateReviewModalForm
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
+          updateReview={updateReview}
+        ></UpdateReviewModalForm>
+      )}
     </div>
   );
 };
