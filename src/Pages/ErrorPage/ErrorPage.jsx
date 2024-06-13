@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import errorImg from "../../assets/images/404-error-page-not-found.png";
 
 const ErrorPage = () => {
@@ -6,7 +7,7 @@ const ErrorPage = () => {
       <div>
         <img src={errorImg} alt="" />
       </div>
-      <button className="btn bg-orange-500 text-white">Go to Home</button>
+      <Link to={'/'}><button className="btn bg-orange-500 text-white">Go to Home</button></Link>
     </div>
   );
 };
