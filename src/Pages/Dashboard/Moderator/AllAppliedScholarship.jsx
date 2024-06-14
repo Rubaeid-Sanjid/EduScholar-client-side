@@ -3,10 +3,13 @@ import SectionTitle from "../../../Component/SectionTitle/SectionTitle";
 import useAllAppliedScholarship from "../../../Hooks/useAllAppliedScholarship";
 import { useState } from "react";
 import AppliedScholarshipDetailsModal from "../../ModalForm/AppliedScholarshipDetailsModal";
+import FeedbackModal from "../../ModalForm/FeedbackModal";
 const AllAppliedScholarship = () => {
   const [allAppliedScholarship] = useAllAppliedScholarship();
 
   const [selectedAppliedScholarship, setSelectedAppliedScholarship] =
+    useState(null);
+  const [selectedFeedbackScholarship, setSelectedFeedbackScholarship] =
     useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -15,6 +18,10 @@ const AllAppliedScholarship = () => {
     setSelectedAppliedScholarship(appliedScholarship);
   };
 
+  const handleFeedback=(appliedScholarship)=>{
+    setIsModalOpen(true);
+    setSelectedFeedbackScholarship(appliedScholarship);
+  }
   return (
     <div>
       <SectionTitle title={"All Applied Scholarship"}></SectionTitle>
@@ -58,7 +65,7 @@ const AllAppliedScholarship = () => {
                   </button>
                 </td>
                 <td>
-                  <button className="btn btn-md bg-orange-400 text-white">
+                  <button onClick={()=>handleFeedback(appliedScholarship)} className="btn btn-md bg-orange-400 text-white">
                     Feedback
                   </button>
                 </td>
@@ -72,11 +79,19 @@ const AllAppliedScholarship = () => {
           </tbody>
         </table>
       </div>
-      <AppliedScholarshipDetailsModal
+      {selectedAppliedScholarship && (
+        <AppliedScholarshipDetailsModal
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
+          selectedAppliedScholarship={selectedAppliedScholarship}
+        ></AppliedScholarshipDetailsModal>
+      )}
+
+      {selectedFeedbackScholarship && <FeedbackModal
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
-        selectedAppliedScholarship={selectedAppliedScholarship}
-      ></AppliedScholarshipDetailsModal>
+        selectedFeedbackScholarship={selectedFeedbackScholarship}
+      ></FeedbackModal>}
     </div>
   );
 };
