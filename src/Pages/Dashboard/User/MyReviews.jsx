@@ -99,13 +99,13 @@ const MyReviews = () => {
             {/* head */}
             <thead>
               <tr>
-                <th></th>
-                <th>Scholarship name</th>
-                <th>University name</th>
-                <th>Review comments</th>
-                <th>Review date</th>
-                <th>Action</th>
-                <th>Action</th>
+                <th className="text-lg">#</th>
+                <th className="text-lg">Scholarship name</th>
+                <th className="text-lg">University name</th>
+                <th className="text-lg">Review comments</th>
+                <th className="text-lg">Review date</th>
+                <th className="text-lg">Action</th>
+                <th className="text-lg">Action</th>
               </tr>
             </thead>
             <tbody>

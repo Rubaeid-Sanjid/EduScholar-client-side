@@ -84,19 +84,19 @@ const MyApplication = () => {
           {/* head */}
           <thead>
             <tr>
-              <th></th>
-              <th>University Name</th>
-              <th>University Address</th>
-              <th>Feedback</th>
-              <th>Subject Category</th>
-              <th>Applied Degree</th>
-              <th>Application Fees</th>
-              <th>Service Charge</th>
-              <th>Application Status</th>
-              <th>Action</th>
-              <th>Action</th>
-              <th>Action</th>
-              <th>Action</th>
+              <th className="text-lg">#</th>
+              <th className="text-lg">University Name</th>
+              <th className="text-lg">University Address</th>
+              <th className="text-lg">Feedback</th>
+              <th className="text-lg">Subject Category</th>
+              <th className="text-lg">Applied Degree</th>
+              <th className="text-lg">Application Fees</th>
+              <th className="text-lg">Service Charge</th>
+              <th className="text-lg">Application Status</th>
+              <th className="text-lg">Action</th>
+              <th className="text-lg">Action</th>
+              <th className="text-lg">Action</th>
+              <th className="text-lg">Action</th>
             </tr>
           </thead>
           <tbody>

@@ -1,8 +1,19 @@
 import { MdDeleteForever } from "react-icons/md";
 import SectionTitle from "../../../Component/SectionTitle/SectionTitle";
 import useAllAppliedScholarship from "../../../Hooks/useAllAppliedScholarship";
+import { useState } from "react";
+import AppliedScholarshipDetailsModal from "../../ModalForm/AppliedScholarshipDetailsModal";
 const AllAppliedScholarship = () => {
   const [allAppliedScholarship] = useAllAppliedScholarship();
+
+  const [selectedAppliedScholarship, setSelectedAppliedScholarship] =
+    useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleApplicationDetails = (appliedScholarship) => {
+    setIsModalOpen(true);
+    setSelectedAppliedScholarship(appliedScholarship);
+  };
 
   return (
     <div>
@@ -39,7 +50,10 @@ const AllAppliedScholarship = () => {
                 <td>{appliedScholarship.serviceCharge}</td>
                 <td>{appliedScholarship.status}</td>
                 <td>
-                  <button className="btn btn-md bg-orange-400 text-white">
+                  <button
+                    onClick={() => handleApplicationDetails(appliedScholarship)}
+                    className="btn btn-md bg-orange-400 text-white"
+                  >
                     Details
                   </button>
                 </td>
@@ -58,6 +72,11 @@ const AllAppliedScholarship = () => {
           </tbody>
         </table>
       </div>
+      <AppliedScholarshipDetailsModal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        selectedAppliedScholarship={selectedAppliedScholarship}
+      ></AppliedScholarshipDetailsModal>
     </div>
   );
 };
