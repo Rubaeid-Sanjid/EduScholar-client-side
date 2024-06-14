@@ -96,6 +96,7 @@ const ScholarshipEditModal = ({
         onRequestClose={onRequestClose}
         style={customStyles}
       >
+        <h2 className="text-2xl font-semibold text-center my-6">Update Scholarship Data</h2>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="container mx-auto px-3 lg:px-12"
@@ -328,6 +329,9 @@ const ScholarshipEditModal = ({
           <button className="btn bg-orange-400 text-white my-3 w-full">
             Update Scholarship
           </button>
+        <button className="btn w-full" onClick={onRequestClose}>
+        Close
+      </button>
         </form>
       </Modal>
     </div>

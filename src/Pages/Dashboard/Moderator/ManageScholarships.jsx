@@ -5,6 +5,8 @@ import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import ScholarshipEditModal from "../../ModalForm/ScholarshipEditModal";
+import Swal from "sweetalert2";
+import useAxiosPrivate from "../../../Hooks/useAxiosPrivate";
 
 const ManageScholarships = () => {
   const [scholarships, refetch] = useScholarships();
@@ -17,6 +19,32 @@ const ManageScholarships = () => {
     setSelectedScholarship(scholarship);
   };
 
+  const axiosSecure = useAxiosPrivate();
+
+  const handleDeleteScholarship = (scholarshipId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/scholarships/${scholarshipId}`);
+
+        if (res.data.deletedCount === 1) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your scholarship data has been deleted.",
+            icon: "success",
+          });
+          refetch();
+        }
+      }
+    });
+  };
   return (
     <div>
       <SectionTitle title={"Manage Scholarships"}></SectionTitle>
@@ -61,7 +89,10 @@ const ManageScholarships = () => {
                   </button>
                 </td>
                 <td>
-                  <button className="text-2xl btn bg-orange-400 text-white">
+                  <button
+                    onClick={() => handleDeleteScholarship(scholarship._id)}
+                    className="text-2xl btn bg-orange-400 text-white"
+                  >
                     <MdDeleteForever />
                   </button>
                 </td>

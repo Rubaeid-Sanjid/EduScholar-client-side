@@ -62,10 +62,12 @@ const FeedbackModal = ({
         <form onSubmit={handleSubmit(onSubmit)}>
           <label className="form-control">
             <div className="label">
-              <span className="label-text text-2xl font-semibold">Your Feedback</span>
+              <span className="label-text text-2xl font-semibold">
+                Your Feedback
+              </span>
               <button className="text-2xl" onClick={onRequestClose}>
-              <ImCancelCircle />
-        </button>
+                <ImCancelCircle />
+              </button>
             </div>
             <textarea
               className="textarea textarea-bordered h-24"
@@ -73,11 +75,11 @@ const FeedbackModal = ({
               {...register("feedback")}
             ></textarea>
           </label>
-         <div className="w-full flex justify-end">
-         <button className="btn bg-orange-400 text-white my-3 w-1/2">
-            Send feedback
-          </button>
-         </div>
+          <div className="w-full flex justify-end">
+            <button className="btn bg-orange-400 text-white my-3 w-1/2">
+              Send feedback
+            </button>
+          </div>
         </form>
       </Modal>
     </div>
