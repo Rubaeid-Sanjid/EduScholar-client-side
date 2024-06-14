@@ -2,9 +2,20 @@ import { FaEdit } from "react-icons/fa";
 import SectionTitle from "../../../Component/SectionTitle/SectionTitle";
 import useScholarships from "../../../Hooks/useScholarships";
 import { MdDeleteForever } from "react-icons/md";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import ScholarshipEditModal from "../../ModalForm/ScholarshipEditModal";
 
 const ManageScholarships = () => {
   const [scholarships, refetch] = useScholarships();
+
+  const [selectedScholarship, setSelectedScholarship] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleScholarshipEdit = (scholarship) => {
+    setIsModalOpen(true);
+    setSelectedScholarship(scholarship);
+  };
 
   return (
     <div>
@@ -35,12 +46,17 @@ const ManageScholarships = () => {
                 <td>{scholarship.degree}</td>
                 <td>{scholarship.applicationFees}</td>
                 <td>
-                  <button className="btn bg-orange-400 text-white">
-                    Details
-                  </button>
+                  <Link to={`/scholarshipDetails/${scholarship._id}`}>
+                    <button className="btn bg-orange-400 text-white">
+                      Details
+                    </button>
+                  </Link>
                 </td>
                 <td>
-                  <button className="text-2xl btn bg-orange-400 text-white">
+                  <button
+                    onClick={() => handleScholarshipEdit(scholarship)}
+                    className="text-2xl btn bg-orange-400 text-white"
+                  >
                     <FaEdit />
                   </button>
                 </td>
@@ -54,6 +70,14 @@ const ManageScholarships = () => {
           </tbody>
         </table>
       </div>
+      {selectedScholarship && (
+        <ScholarshipEditModal
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
+          scholarship={selectedScholarship}
+          refetch={refetch}
+        ></ScholarshipEditModal>
+      )}
     </div>
   );
 };

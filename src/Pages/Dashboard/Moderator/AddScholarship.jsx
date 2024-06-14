@@ -171,9 +171,9 @@ const AddScholarship = () => {
               <option value="" defaultChecked>
                 Select category
               </option>
-              <option value="fullFund">Full fund</option>
-              <option value="partial">Partial</option>
-              <option value="selfFund">Self-fund</option>
+              <option value="Full-Fund">Full fund</option>
+              <option value="Partial">Partial</option>
+              <option value="Self-Fund">Self-fund</option>
             </select>
           </div>
 
@@ -199,9 +199,9 @@ const AddScholarship = () => {
               <option value="" defaultChecked>
                 Select subject
               </option>
-              <option value="agriculture">Agriculture</option>
-              <option value="engineering">Engineering</option>
-              <option value="doctor">Doctor</option>
+              <option value="Agriculture">Agriculture</option>
+              <option value="Engineering">Engineering</option>
+              <option value="Doctor">Doctor</option>
             </select>
           </div>
 
@@ -213,9 +213,9 @@ const AddScholarship = () => {
               <option value="" defaultChecked>
                 Select your degree
               </option>
-              <option value="diploma">Diploma</option>
-              <option value="bachelor">Bachelor</option>
-              <option value="masters">Masters</option>
+              <option value="Diploma">Diploma</option>
+              <option value="Bachelor">Bachelor</option>
+              <option value="Masters">Masters</option>
             </select>
           </div>
 

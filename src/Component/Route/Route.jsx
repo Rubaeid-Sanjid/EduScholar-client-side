@@ -58,36 +58,68 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "myProfile",
-        element: <MyProfile></MyProfile>,
+        element: (
+          <PrivateRoute>
+            <MyProfile></MyProfile>
+          </PrivateRoute>
+        ),
       },
       {
         path: "myApplication",
-        element: <MyApplication></MyApplication>,
+        element: (
+          <PrivateRoute>
+            <MyApplication></MyApplication>
+          </PrivateRoute>
+        ),
       },
       {
         path: "myReviews",
-        element: <MyReviews></MyReviews>,
+        element: (
+          <PrivateRoute>
+            <MyReviews></MyReviews>
+          </PrivateRoute>
+        ),
       },
       // Moderator & Admin Route
       {
         path: "manageScholarships",
-        element: <ManageScholarships></ManageScholarships>,
+        element: (
+          <PrivateRoute>
+            <ManageScholarships></ManageScholarships>
+          </PrivateRoute>
+        ),
       },
       {
         path: "allReviews",
-        element: <AllReviews></AllReviews>,
+        element: (
+          <PrivateRoute>
+            <AllReviews></AllReviews>
+          </PrivateRoute>
+        ),
       },
       {
         path: "allAppliedScholarship",
-        element: <AllAppliedScholarship></AllAppliedScholarship>,
+        element: (
+          <PrivateRoute>
+            <AllAppliedScholarship></AllAppliedScholarship>
+          </PrivateRoute>
+        ),
       },
       {
         path: "addScholarship",
-        element: <AddScholarship></AddScholarship>,
+        element: (
+          <PrivateRoute>
+            <AddScholarship></AddScholarship>
+          </PrivateRoute>
+        ),
       },
       {
         path: "manageUsers",
-        element: <ManageUsers></ManageUsers>,
+        element: (
+          <PrivateRoute>
+            <ManageUsers></ManageUsers>
+          </PrivateRoute>
+        ),
       },
     ],
   },
