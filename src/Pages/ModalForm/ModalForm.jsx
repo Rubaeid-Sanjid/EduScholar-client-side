@@ -57,7 +57,7 @@ const ModalForm = ({ isOpen, onRequestClose, scholarships }) => {
       userEmail: user.email,
       scholarshipId: scholarships._id,
       date: new Date(),
-
+      scholarshipName: scholarships?.scholarshipName,
       serviceCharge: scholarships.serviceCharge,
       applicationFees: scholarships.applicationFees,
       status: "Pending",
