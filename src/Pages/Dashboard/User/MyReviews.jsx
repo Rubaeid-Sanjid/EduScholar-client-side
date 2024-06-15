@@ -6,6 +6,7 @@ import useAxiosPrivate from "../../../Hooks/useAxiosPrivate";
 import useAuth from "../../../Hooks/useAuth";
 import UpdateReviewModalForm from "../../ModalForm/UpdateReviewModalForm";
 import Swal from "sweetalert2";
+import SectionTitle from "../../../Component/SectionTitle/SectionTitle";
 
 const customStyles = {
   content: {
@@ -86,9 +87,7 @@ const MyReviews = () => {
 
   return (
     <div>
-      <h2 className="text-3xl lg:text-4xl font-medium text-center my-8">
-        My Reviews
-      </h2>
+      <SectionTitle title={"My Reviews"}></SectionTitle>
       <Modal
         isOpen={isModalOpen}
         onRequestClose={onRequestClose}

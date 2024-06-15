@@ -1,12 +1,11 @@
+import SectionTitle from "../../../Component/SectionTitle/SectionTitle";
 import useAuth from "../../../Hooks/useAuth";
 
 const MyProfile = () => {
   const { user } = useAuth();
   return (
     <div className="container px-3 lg:px-12 mx-auto">
-      <h2 className="text-3xl lg:text-4xl font-medium text-center my-8">
-        My Profile
-      </h2>
+      <SectionTitle title={"My Profile"}></SectionTitle>
       <div className="">
         <div className="flex flex-col justify-center items-center gap-6 p-4">
           <div className="avatar">

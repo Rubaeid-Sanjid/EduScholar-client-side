@@ -5,6 +5,7 @@ import { useState } from "react";
 import UpdateModalForm from "../../ModalForm/UpdateModalForm";
 import useAxiosPrivate from "../../../Hooks/useAxiosPrivate";
 import ReviewModalForm from "../../ModalForm/ReviewModalForm";
+import SectionTitle from "../../../Component/SectionTitle/SectionTitle";
 
 const MyApplication = () => {
   const [myAppliedScholarship, refetch] = useAppliedScholarship();
@@ -76,9 +77,7 @@ const MyApplication = () => {
   };
   return (
     <div>
-      <h2 className="text-3xl lg:text-4xl font-medium text-center my-8">
-        My Application
-      </h2>
+      <SectionTitle title={"My Applications"}></SectionTitle>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}

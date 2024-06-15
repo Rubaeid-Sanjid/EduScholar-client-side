@@ -48,7 +48,7 @@ const ManageScholarships = () => {
   return (
     <div>
       <SectionTitle title={"Manage Scholarships"}></SectionTitle>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto container mx-auto px-3 lg:px-12">
         <table className="table">
           {/* head */}
           <thead>

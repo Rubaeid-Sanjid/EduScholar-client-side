@@ -110,7 +110,7 @@ const CheckoutForm = ({ scholarshipId }) => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <div className="card md:w-1/2 mx-auto bg-base-100 shadow-xl image-full">
+        <div className="card md:w-1/2 mx-auto bg-base-100 shadow-xl image-full mb-5">
           <figure>
             <img src={cardImg} alt="" />
           </figure>
