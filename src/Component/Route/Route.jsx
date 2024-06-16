@@ -16,6 +16,7 @@ import AllReviews from "../../Pages/Dashboard/Moderator/AllReviews";
 import AllAppliedScholarship from "../../Pages/Dashboard/Moderator/AllAppliedScholarship";
 import AddScholarship from "../../Pages/Dashboard/Moderator/AddScholarship";
 import ManageUsers from "../../Pages/Dashboard/Admin/ManageUsers";
+import AllScholarships from "../../Pages/AllScholarships/AllScholarships";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: "/signUp",
         element: <SignUp></SignUp>,
+      },
+      {
+        path: "/allScholarships",
+        element: <AllScholarships></AllScholarships>,
       },
       {
         path: "/scholarshipDetails/:id",
