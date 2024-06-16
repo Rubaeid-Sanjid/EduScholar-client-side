@@ -3,24 +3,20 @@ import loginImage from "../../assets/images/signIn.jpg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
-import googleLogo from "../../assets/images/google-logo-image.png"
+import googleLogo from "../../assets/images/google-logo-image.png";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 const Login = () => {
-  const {
-    register,
-    handleSubmit,
-    // setError,
-    // formState: { errors },
-  } = useForm();
+  const axiosPublic = useAxiosPublic();
+  const { register, handleSubmit } = useForm();
 
   const location = useLocation();
   const navigate = useNavigate();
 
-  const pathFrom = location.state?.from?.pathname || '/';
+  const pathFrom = location.state?.from?.pathname || "/";
 
   const { loginUser, googleLogin } = useAuth();
 
   const onSubmit = (data) => {
-
     loginUser(data.email, data.password)
       .then(() => {
         Swal.fire({
@@ -30,31 +26,42 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate(pathFrom, {replace: true})
+        navigate(pathFrom, { replace: true });
       })
       .catch((err) => {
-        console.log(err.code.split('/')[1]);
-        // setError("email", { message: err.code.split('/')[1] });
-        // setError("password", { message: err.code.split('/')[1] });
+        console.log(err.code.split("/")[1]);
       });
   };
 
-  const handleGoogleLogin = ()=>{
+  const handleGoogleLogin = () => {
     googleLogin()
-    .then(()=>{
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Log-In successful",
-        showConfirmButton: false,
-        timer: 1500,
+      .then((result) => {
+        console.log(result);
+        const userInfo = {
+          user_email: result.user.email,
+          user_name: result.user.displayName,
+          user_password: result.user.uid,
+          user_photo: result.user.photoURL,
+          role: "user",
+        };
+
+        axiosPublic.post("/users", userInfo).then((res) => {
+          if (res.data.insertedId) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your account has been created",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            navigate(pathFrom, { replace: true });
+          }
+        });
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      navigate(pathFrom, {replace: true})
-    })
-    .catch(error =>{
-      console.log(error);
-    })
-  }
+  };
   return (
     <div>
       <div className="hero min-h-screen">
@@ -108,13 +115,17 @@ const Login = () => {
                   </label>
                 </div>
                 <div className="form-control mt-6">
-                <button
-                onClick={handleGoogleLogin}
-                className="w-full px-4 py-2 border flex justify-center gap-2 rounded-lg mb-3"
-              >
-                <img className="w-6 h-6" src={googleLogo} alt="google logo" />
-                <span>Login with Google</span>
-              </button>
+                  <button
+                    onClick={handleGoogleLogin}
+                    className="w-full px-4 py-2 border flex justify-center gap-2 rounded-lg mb-3"
+                  >
+                    <img
+                      className="w-6 h-6"
+                      src={googleLogo}
+                      alt="google logo"
+                    />
+                    <span>Login with Google</span>
+                  </button>
 
                   <button className="btn bg-orange-400 text-white">
                     Login
