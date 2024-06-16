@@ -43,9 +43,12 @@ const AllScholarships = () => {
   };
 
   return (
-    <div className="pt-32">
-      <form onSubmit={handleSearch} className="flex justify-center my-8 items-center">
-        <div className="flex p-1 overflow-hidden border rounded-lg focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300">
+    <div className="lg:pt-32">
+      <form
+        onSubmit={handleSearch}
+        className="flex justify-center my-8 items-center flex-col lg:flex-row"
+      >
+        <div className="flex p-1 lg:overflow-hidden border rounded-lg focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300">
           <input
             className="px-6 py-2 text-gray-700 placeholder-gray-500 bg-white outline-none focus:placeholder-transparent"
             type="text"
@@ -72,7 +75,7 @@ const AllScholarships = () => {
           <Scholarship key={scholarship._id} scholarshipItem={scholarship} />
         ))}
       </div>
-      <div className="flex justify-center mt-12">
+      <div className="flex justify-center mt-12 mb-5">
         <button
           disabled={currentPage === 1}
           onClick={() => handlePaginationButton(currentPage - 1)}
