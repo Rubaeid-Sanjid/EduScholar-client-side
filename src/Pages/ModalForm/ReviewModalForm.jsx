@@ -43,6 +43,7 @@ const ReviewModalForm = ({ isOpen, onRequestClose, scholarship }) => {
       reviewerComments: data.comment,
       scholarshipName: scholarship?.scholarshipCategory,
       universityName: scholarship?.universityName,
+      subjectName: scholarship?.subjectName,
     };
 
     const res = await axiosSecure.post("/reviews", reviewInfo);

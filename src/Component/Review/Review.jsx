@@ -33,7 +33,9 @@ const Review = ({ review, refetch }) => {
   return (
     <div className="card items-center bg-base-100 shadow-xl">
       <div className="card-body">
-        <div className="flex gap-3 mb-2">
+            <h2 className="text-center text-xl font-semibold">{review.universityName}</h2>
+            <h2 className="text-center font-medium border-b pb-2">{review.subjectName}</h2>
+        <div className="flex gap-3 my-2">
           <div className="avatar">
             <div className="w-16 rounded-full">
               <img src={review.reviewerImage} />
@@ -41,6 +43,8 @@ const Review = ({ review, refetch }) => {
           </div>
 
           <div>
+            
+      
             <h2 className="card-title">{review.reviewerName}</h2>
             <h2 className="text-gray-500">
               <span>Posted On:</span> {review.reviewDate}
