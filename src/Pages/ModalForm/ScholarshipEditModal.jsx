@@ -74,7 +74,7 @@ const ScholarshipEditModal = ({
       `/scholarships/${scholarship._id}`,
       updatedScholarshipInfo
     );
-
+    
     if (res.data.modifiedCount > 0) {
       Swal.fire({
         position: "center",

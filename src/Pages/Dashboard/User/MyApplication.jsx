@@ -104,7 +104,7 @@ const MyApplication = () => {
                 <th>{idx + 1}</th>
                 <td>{appliedScholarship.universityName}</td>
                 <td>{appliedScholarship.address}</td>
-                <td>{appliedScholarship.feedback}</td>
+                <td className="text-red-500">{appliedScholarship.feedback}</td>
                 <td>{appliedScholarship.subject}</td>
                 <td>{appliedScholarship.degree}</td>
                 <td>{appliedScholarship.applicationFees}</td>
@@ -155,6 +155,7 @@ const MyApplication = () => {
           isOpen={isModalOpen}
           onRequestClose={() => setIsModalOpen(false)}
           selectedScholarship={selectedScholarship}
+          refetch={refetch}
         />
       )}
       <ReviewModalForm

@@ -93,7 +93,7 @@ const Dashboard = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/AllScholarship"} className={"my-2 lg:my-0 mx-2"}>
+              <NavLink to={"/allScholarships"} className={"my-2 lg:my-0 mx-2"}>
                 All Scholarship
               </NavLink>
             </li>

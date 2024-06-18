@@ -15,8 +15,8 @@ const ManageScholarships = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleScholarshipEdit = (scholarship) => {
-    setIsModalOpen(true);
     setSelectedScholarship(scholarship);
+    setIsModalOpen(true);
   };
 
   const axiosSecure = useAxiosPrivate();

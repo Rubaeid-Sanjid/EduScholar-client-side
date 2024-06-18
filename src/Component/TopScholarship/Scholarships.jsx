@@ -40,7 +40,7 @@ const Scholarships = () => {
           ></Scholarship>
         ))}
       </div>
-      <Link className="flex justify-center my-6">
+      <Link className="flex justify-center my-6" to={'/allScholarships'}>
         <button className="btn bg-orange-400 text-white">
           All Scholarships
         </button>

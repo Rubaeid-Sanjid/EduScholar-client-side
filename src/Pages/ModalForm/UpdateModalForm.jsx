@@ -24,7 +24,7 @@ const customStyles = {
   },
 };
 
-const UpdateModalForm = ({ isOpen, onRequestClose, selectedScholarship }) => {
+const UpdateModalForm = ({ isOpen, onRequestClose, selectedScholarship, refetch }) => {
   const { register, handleSubmit } = useForm();
 
   const axiosSecure = useAxiosPrivate();
@@ -73,6 +73,7 @@ const UpdateModalForm = ({ isOpen, onRequestClose, selectedScholarship }) => {
         showConfirmButton: false,
         timer: 3000,
       });
+      refetch();
       onRequestClose(true);
     }
   };
@@ -234,6 +235,7 @@ UpdateModalForm.propTypes = {
   isOpen: PropTypes.bool,
   onRequestClose: PropTypes.func,
   selectedScholarship: PropTypes.object,
+  refetch: PropTypes.func
 };
 
 export default UpdateModalForm;
