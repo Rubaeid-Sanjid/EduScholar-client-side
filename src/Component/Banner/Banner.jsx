@@ -38,7 +38,7 @@ const Banner = () => {
           <div
             className="hero min-h-screen"
             style={{
-              backgroundImage: "url(https://i.ibb.co/VLdbHWF/banner-3.jpg)",
+              backgroundImage: "url(https://i.ibb.co/NFbYTL2/banner-3.jpg)",
             }}
           >
             <div className="hero-overlay bg-opacity-60"></div>
@@ -66,7 +66,6 @@ const Banner = () => {
             scholarship and university. Let's make your academic dreams a
             reality.
           </p>
-          {/* <button className="btn btn-primary">Get Started</button> */}
         </div>
       </div>
     </div>

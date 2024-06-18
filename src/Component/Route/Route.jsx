@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/scholarshipDetails/${params.id}`),
+          fetch(`https://edu-scholar-server-side.vercel.app/scholarshipDetails/${params.id}`),
       },
       {
         path: "/payment",
