@@ -5,12 +5,16 @@ import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import googleLogo from "../../assets/images/google-logo-image.png";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { useState } from "react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 const Login = () => {
   const axiosPublic = useAxiosPublic();
   const { register, handleSubmit } = useForm();
 
   const location = useLocation();
   const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const pathFrom = location.state?.from?.pathname || "/";
 
@@ -86,28 +90,25 @@ const Login = () => {
                     required
                     {...register("email")}
                   />
-                  {/* {errors.email && (
-                    <p role="alert" className="text-red-600 mt-1">
-                      {errors.email.message}
-                    </p>
-                  )} */}
                 </div>
-                <div className="form-control">
+                <div className="form-control relative">
                   <label className="label">
                     <span className="label-text">Password</span>
                   </label>
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="password"
                     className="input input-bordered"
                     required
                     {...register("password")}
                   />
-                  {/* {errors.password && (
-                    <p role="alert" className="text-red-600 mt-1">
-                      {errors.password.message}
-                    </p>
-                  )} */}
+                  <div
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute top-[45%] left-[90%] cursor-pointer"
+                  >
+                    {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                  </div>
+
                   <label className="label">
                     <a href="#" className="label-text-alt link link-hover">
                       Forgot password?

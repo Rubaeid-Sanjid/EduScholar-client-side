@@ -109,7 +109,13 @@ const MyApplication = () => {
                 <td>{appliedScholarship.degree}</td>
                 <td>{appliedScholarship.applicationFees}</td>
                 <td>{appliedScholarship.serviceCharge}</td>
-                <td>{appliedScholarship.status}</td>
+                {appliedScholarship.status === "Rejected" ? (
+                  <td className="text-red-600">{appliedScholarship.status}</td>
+                ) : (
+                  <td className="text-green-600">
+                    {appliedScholarship.status}
+                  </td>
+                )}
                 <td>
                   <Link to={`/scholarshipDetails/${appliedScholarship._id}`}>
                     <button className="btn-md bg-orange-400 text-white btn">

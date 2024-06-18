@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { axiosPublic } from "../../Hooks/useAxiosPublic";
+import { useState } from "react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 const SignUp = () => {
   const {
@@ -13,6 +15,7 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
@@ -36,7 +39,7 @@ const SignUp = () => {
               user_name: data.name,
               user_password: data.password,
               user_photo: res.data.data.display_url,
-              role: "user"
+              role: "user",
             };
 
             axiosPublic.post("/users", userInfo).then((res) => {
@@ -109,12 +112,12 @@ const SignUp = () => {
                 />
               </div>
 
-              <div className="form-control">
+              <div className="form-control relative">
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="password"
                   className="input input-bordered"
                   required
@@ -134,6 +137,13 @@ const SignUp = () => {
                     letter
                   </p>
                 )}
+
+                <div
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute top-[45%] left-[90%] cursor-pointer"
+                >
+                  {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                </div>
 
                 <label className="label">
                   <a href="#" className="label-text-alt link link-hover">
