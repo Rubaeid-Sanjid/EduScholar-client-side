@@ -6,8 +6,8 @@ Admin password: Sanjid@123
 Live Site: https://eduscholar-434da.web.app
 
 Features:
-* Registration and Login
-* Google login
+* Registration and Login with firebase
+* Google login authentication
 * Payment method with stripe
 * Apply for scholarship
 * Three types of user dashboard
