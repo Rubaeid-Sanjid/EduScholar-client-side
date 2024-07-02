@@ -1,8 +1,5 @@
 # EduScholar
 
-Admin email: sanjid@gmail.com
-Admin password: Sanjid@123
-
 Live Site: https://eduscholar-434da.web.app
 
 Features:
