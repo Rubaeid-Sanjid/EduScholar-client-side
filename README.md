@@ -29,11 +29,11 @@ It is a scholarship management website. Users can apply for university scholarsh
 
 2. Install dependencies for both the client and server directories
 * For the client:
-cd client
-npm install
+- cd client
+- npm install
 * For the server:
-cd server
-npm install
+- cd server
+- npm install
 
 3. Set up Firebase
 * Go to the Firebase Console.
